@@ -1,0 +1,92 @@
+CREATE DATABASE eshop_pkm CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+SHOW DATABASES;
+
+USE eshop_pkm;
+SHOW TABLES;
+SELECT * FROM tableavoir; 
+DROP TABLE tableasupprimer;
+
+CREATE TABLE product (
+    id INT PRIMARY KEY NOT NULL,
+    ref VARCHAR(100),
+    category_id INT,
+    name VARCHAR(100),
+    energy_type VARCHAR(100),
+    level INT,
+    card_number INT,
+    bid INT,
+    price INT,
+    image VARCHAR(255),
+    `delete` INT
+);
+
+CREATE TABLE category (
+    id INT PRIMARY KEY NOT NULL,
+    name VARCHAR(100),
+    image VARCHAR(255),
+    `delete` INT
+);
+
+CREATE TABLE stock (
+    id INT PRIMARY KEY NOT NULL,
+    product_id INT,
+    quantity INT
+);
+
+CREATE TABLE bid (
+    id INT PRIMARY KEY NOT NULL,
+    product_id INT,
+    user_id INT,
+    bid_amount INT,
+    status VARCHAR(100),
+    date DATETIME
+);
+
+CREATE TABLE user (
+    id INT PRIMARY KEY NOT NULL,
+    name VARCHAR(100),
+    firstname VARCHAR(100),
+    mail VARCHAR(255),
+    password VARCHAR(100),
+    admin INT
+);
+
+CREATE TABLE `order` (
+    id INT PRIMARY KEY NOT NULL,
+    ref VARCHAR(100),
+    user_id INT,
+    status VARCHAR(100),
+    date DATETIME,
+    product_id INT
+);
+
+CREATE TABLE invoice (
+    id INT PRIMARY KEY NOT NULL,
+    user_id INT,
+    date DATETIME,
+    order_ref VARCHAR(100),
+    payment_method VARCHAR(100)
+);
+
+SHOW TABLES;
+;
+
+
+INSERT INTO product VALUES ('2', '1cn0', '3', 'pikachu', 'lightning', '12', '58', '0', '65', null, null);
+INSERT INTO category VALUES ('1', 'new', null, null);
+INSERT INTO stock VALUES ('1', null, '3');
+INSERT INTO bid VALUES ('1', '1', '1', '5', 'open', '2021-01-01 23:59:59.997');
+INSERT INTO user VALUES ('1', 'ketchum', 'sacha', 'gotacatchemall@hotmail.fr', 'love_ondine', '1');
+INSERT INTO `order` VALUES ('1', '0001', '1', 'in delivery', '2020-01-01 23:59:59.997', '1');
+INSERT INTO invoice VALUES ('1', '1', '2020-01-01 23:59:59.997', '0001', 'paypal');
+;
+
+DROP TABLE product;
+DROP TABLE category;
+DROP TABLE stock;
+DROP TABLE bid;
+DROP TABLE user;
+DROP TABLE `order`;
+DROP TABLE invoice;
+SHOW TABLES;
+;
