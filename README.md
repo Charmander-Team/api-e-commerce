@@ -1,10 +1,12 @@
 # api_e_commerce
 
 * Step 1:
+````
 $npm install
+````
 
 &nbsp;
-*to create 'node_modules' folder*
+*(to create 'node_modules' folder)*
 
 ---
 
@@ -22,4 +24,6 @@ const connDB = mysql.createConnection({
 ---
 
 * Step 3
+````
 $npm start
+````
