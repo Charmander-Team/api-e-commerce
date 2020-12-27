@@ -2,6 +2,7 @@
 
 * Step 1:
 $npm install
+*to create 'node_modules' folder*
 
 * Step 2
 edit index.js (database connection)
