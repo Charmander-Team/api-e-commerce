@@ -1,4 +1,4 @@
-# Ignore field "node_module" who can be created with "npm install"
+# Ignore field "node_module" which can be created with "npm install"
 node_modules
 
 # Ignore file created by PhpStorm
