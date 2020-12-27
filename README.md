@@ -1,6 +1,6 @@
 # api_e_commerce
 
-* Step 1:
+# * Step 1:
 ````
 $npm install
 ````
@@ -10,7 +10,7 @@ $npm install
 
 ---
 
-* Step 2
+# * Step 2
 edit index.js (database connection)
 ````js
 const connDB = mysql.createConnection({
@@ -23,7 +23,7 @@ const connDB = mysql.createConnection({
 
 ---
 
-* Step 3
+# * Step 3
 ````
 $npm start
 ````
