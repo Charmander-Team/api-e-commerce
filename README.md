@@ -2,6 +2,9 @@
 
 * Step 1:
 $npm install
+
+
+&nbsp;
 *to create 'node_modules' folder*
 
 * Step 2
