@@ -2,10 +2,10 @@
 
 * Step 1:
 $npm install
-
-
 &nbsp;
 *to create 'node_modules' folder*
+
+---
 
 * Step 2
 edit index.js (database connection)
@@ -17,6 +17,8 @@ const connDB = mysql.createConnection({
   database: 'eshop_pkm'
 });
 ````
+
+---
 
 * Step 3
 $npm start
