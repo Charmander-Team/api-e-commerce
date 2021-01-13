@@ -1,11 +1,16 @@
 const mysql = require('mysql');
 
+const host = require('./sql/host');
+const user = require('./sql/user');
+const password = require('./sql/password');
+const database = require('./sql/database');
+
 //create database connection
 const connDB = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'test',
-    database: 'eshop_pkm'
+    host: host,
+    user: user,
+    password: password,
+    database: database
 });
 
 //connect to database
