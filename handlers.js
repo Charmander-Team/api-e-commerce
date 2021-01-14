@@ -1,16 +1,13 @@
 const mysql = require('mysql');
 
-const host = require('./sql/host');
-const user = require('./sql/user');
-const password = require('./sql/password');
-const database = require('./sql/database');
+const env = require('./env/env');
 
 //create database connection
 const connDB = mysql.createConnection({
-    host: host,
-    user: user,
-    password: password,
-    database: database
+    host: env.host,
+    user: env.user,
+    password: env.password,
+    database: env.database
 });
 
 //connect to database
@@ -29,15 +26,6 @@ const showAllCards = (req, res) => {
     });
 };
 
-//show all user
-/*app.get('/api/users',(req, res) => {
-    const sql = "SELECT * FROM user";
-    const query = connDB.query(sql, (err, results) => {
-      if(err) throw err;
-      res.send(results);
-    });
-});*/
-
 const showCardByName = (req, res) => {
     let sql = `SELECT * FROM product WHERE name='${req.params.name}'`;
     let query = connDB.query(sql, (err, results) => {
@@ -46,7 +34,40 @@ const showCardByName = (req, res) => {
     });
 };
 
+const showCardsFromType = (req, res) => {
+   let sql = `SELECT * FROM product WHERE energy_type='${req.params.type}'`;
+    let query = connDB.query(sql, (err, results) => {
+        if(err) throw err;
+        res.send(results)
+    });
+}
 
+const addSalamecheCard = (req, res) => {
+
+    const lastCardId = 1;
+
+    let salameche = {
+        ref: "test",
+        category_id: 3,
+        name: "salameche",
+        energy_type : "fire",
+        level: 15,
+        card_number: 30,
+        bid: null,
+        price: 50,
+        delete: null
+    };
+
+    salameche.id = lastCardId + 1;
+
+
+    const sql = `INSERT INTO product SET ?`;
+    //console.log("tet");
+    const query = connDB.query(sql, salameche, (err, results) => {
+        if(err) throw err;
+        res.send(results);
+    });
+}
 
 //add new product
 /*app.post('/api/products',(req, res) => {
@@ -90,4 +111,4 @@ app.delete('/api/products/:id',(req, res) => {
 */
 
 
-module.exports = {showAllCards, showCardByName};
+module.exports = {showAllCards, showCardByName, showCardsFromType, addSalamecheCard};

@@ -3,3 +3,6 @@ node_modules
 
 # Ignore file created by PhpStorm
 .idea
+
+# Ignore environnement variables
+env/env.js
