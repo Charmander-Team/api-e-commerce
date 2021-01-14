@@ -5,4 +5,4 @@ node_modules
 .idea
 
 # Ignore environnement variables
-env/env.js
+config/config.js

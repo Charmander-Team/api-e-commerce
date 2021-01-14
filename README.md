@@ -19,7 +19,7 @@ exit;
 ### The DUMP:
 You need to export the DB already done in your DB:
 ``````sql
-mysql -u 'username' -p dbname < env/eshop_pkm-dump.sql
+mysql -u 'username' -p dbname < config/eshop_pkm-dump.sql
 ``````
 
 # Step 1:
@@ -33,7 +33,7 @@ $ npm install
 ---
 
 # Step 2
-Follow the instructions in `env/env.example`
+Follow the instructions in `config/config.example`
 
 
 ---
