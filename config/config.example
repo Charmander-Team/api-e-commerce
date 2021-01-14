@@ -1,10 +1,10 @@
 /**
  * You must have to:
- *  - copy this files and rename it "env.js"
+ *  - copy this files and rename it "config.js"
  *  - edit this one with your sql ID
  */
 
-const env = {
+const config = {
     host: 'localhost',
     user: 'root',
     password: 'test',
@@ -12,7 +12,7 @@ const env = {
     port: 3006
 }
 
-module.exports = env;
+module.exports = config;
 
 
 
