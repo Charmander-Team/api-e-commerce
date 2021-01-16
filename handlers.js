@@ -1,34 +1,19 @@
 const mysql = require('mysql');
+const connDB = require('./config/db_connect');
 
-const config = require('./config/config');
-
-//create database connection
-const connDB = mysql.createConnection({
-    host: config.host,
-    user: config.user,
-    password: config.password,
-    database: config.database
-});
-
-//connect to database
-connDB.connect((err) =>{
-    if(err) throw err;
-    console.log('Mysql Connected...');
-});
 
 
 const showAllCards = (req, res) => {
-    const sql = `SELECT * FROM product`;
-    const query = connDB.query(sql, (err, results) => {
+    const sql = 'SELECT * FROM product';
+    connDB.query(sql, (err, results) => {
         if(err) throw err;
-        //res.send(JSON.stringify({"status": 200, "error": null, "response": results}));
         res.send(results);
     });
 };
 
 const showCardByName = (req, res) => {
     let sql = `SELECT * FROM product WHERE name='${req.params.name}'`;
-    let query = connDB.query(sql, (err, results) => {
+    connDB.query(sql, (err, results) => {
         if(err) throw err;
         res.send(results)
     });
@@ -36,10 +21,10 @@ const showCardByName = (req, res) => {
 
 const showCardsFromType = (req, res) => {
    let sql = `SELECT * FROM product WHERE energy_type='${req.params.type}'`;
-    let query = connDB.query(sql, (err, results) => {
+   connDB.query(sql, (err, results) => {
         if(err) throw err;
         res.send(results)
-    });
+   });
 }
 
 const addSalamecheCard = (req, res) => {
@@ -61,7 +46,7 @@ const addSalamecheCard = (req, res) => {
     salameche.id = lastCardId + 1;
 
 
-    const sql = `INSERT INTO product SET ?`;
+    const sql = 'INSERT INTO product SET ?';
     //console.log("tet");
     const query = connDB.query(sql, salameche, (err, results) => {
         if(err) throw err;

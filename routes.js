@@ -10,7 +10,6 @@ const createRoutes = (app) => {
 
     app.post('/api/products/salameche', handlers.addSalamecheCard);
 
-
 }
 
 module.exports = createRoutes;
