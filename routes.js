@@ -8,7 +8,9 @@ const createRoutes = (app) => {
 
     app.get('/api/products/type/:type', handlers.showCardsFromType);
 
-    app.post('api/products/salameche', handlers.addSalamecheCard);
+    app.post('/api/products/salameche', handlers.addSalamecheCard);
+
+
 }
 
 module.exports = createRoutes;

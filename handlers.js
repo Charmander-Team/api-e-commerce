@@ -44,7 +44,7 @@ const showCardsFromType = (req, res) => {
 
 const addSalamecheCard = (req, res) => {
 
-    const lastCardId = 1;
+    const lastCardId = 2;
 
     let salameche = {
         ref: "test",
@@ -53,7 +53,7 @@ const addSalamecheCard = (req, res) => {
         energy_type : "fire",
         level: 15,
         card_number: 30,
-        bid: null,
+        //bid: null,
         price: 50,
         delete: null
     };
