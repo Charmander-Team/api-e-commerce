@@ -10,6 +10,8 @@ const createRoutes = (app) => {
 
     app.post('/api/products/salameche', handlers.addSalamecheCard);
 
+    app.delete('/api/products/:id', handlers.deleteCard);
+
 }
 
 module.exports = createRoutes;

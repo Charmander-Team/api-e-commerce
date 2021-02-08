@@ -29,51 +29,56 @@ const showCardsFromType = (req, res) => {
 
 const addSalamecheCard = (req, res) => {
 
-    const lastCardId = 2;
+    // recuperation du dernier product de la table product
+    const maxId = 'SELECT max(Id) FROM product';
 
-    let salameche = {
-        ref: "test",
-        category_id: 3,
-        name: "salameche",
-        energy_type : "fire",
-        level: 15,
-        card_number: 30,
-        //bid: null,
-        price: 50,
-        delete: null
-    };
-
-    salameche.id = lastCardId + 1;
-
-
-    const sql = 'INSERT INTO product SET ?';
-    //console.log("tet");
-    const query = connDB.query(sql, salameche, (err, results) => {
+    connDB.query(maxId, (err, results) => {
         if(err) throw err;
-        res.send(results);
+
+        const lastCardId = results[0]['max(Id)'];
+
+        const salameche = {
+            ref: "test",
+            category_id: 3,
+            name: "salameche",
+            energy_type : "fire",
+            level: 15,
+            card_number: 30,
+            //bid: null,
+            price: 50,
+            delete: null
+        };
+
+        salameche.id = lastCardId + 1;
+
+        const sql = 'INSERT INTO product SET ?';
+
+        connDB.query(sql, salameche, (err, results) => {
+            if(err) throw err;
+            res.send(results);
+        });
     });
 }
 
-//add new product
-/*app.post('/api/products',(req, res) => {
-  const data = {
-    id: 2,
-    ref: "test",
-    category_id: 3,
-    name: "salameche",
-    energy_type : "fire",
-    level: 15,
-    card_number: 30,
-    bid: null,
-    price: 50,
-    delete: null
-  };
-  const sql = "INSERT INTO product SET ?";
-  const query = connDB.query(sql, data,(err, results) => {
-    if(err) throw err;
-    res.send(results);
-  });
-});*/
+const deleteCard = (req, res) => {
+    let sql = `DELETE FROM product WHERE id='${req.params.id}'`;
+    connDB.query(sql, (err, results) => {
+        if(err) throw err;
+        res.send(results)
+    });
+}
+
+module.exports = {
+    showAllCards,
+    showCardByName,
+    showCardsFromType,
+    addSalamecheCard,
+    deleteCard
+};
+
+
+
+
 /*
 //update product
 app.put('/api/products/:id',(req, res) => {
@@ -83,17 +88,3 @@ app.put('/api/products/:id',(req, res) => {
    res.send(JSON.stringify({"status": 200, "error": null, "response": results}));
  });
 */
-
-//Delete product
-/*
-app.delete('/api/products/:id',(req, res) => {
-  let sql = "DELETE FROM product WHERE product_id=5";
-  let query = connDB.query(sql, (err, results) => {
-    if(err) throw err;
-      res.send(results);
-  });
-});
-*/
-
-
-module.exports = {showAllCards, showCardByName, showCardsFromType, addSalamecheCard};
