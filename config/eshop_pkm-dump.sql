@@ -1,13 +1,13 @@
--- MariaDB dump 10.18  Distrib 10.5.8-MariaDB, for Win64 (AMD64)
+-- MySQL dump 10.13  Distrib 5.7.31, for Linux (x86_64)
 --
 -- Host: localhost    Database: eshop_pkm
 -- ------------------------------------------------------
--- Server version	10.5.8-MariaDB
+-- Server version	5.7.31
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -153,7 +153,7 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` VALUES (2,'1cn0',3,'pikachu','lightning',12,58,0,65,NULL,NULL);
+INSERT INTO `product` VALUES (1,'sm76',NULL,'pikachu','electric',NULL,NULL,NULL,NULL,'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM76/',NULL),(2,'sm226',NULL,'dracaufeu','fire',NULL,NULL,NULL,NULL,'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM226/',NULL),(3,'sm77',NULL,'mewtwo','psychic',NULL,NULL,NULL,NULL,'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM77/',NULL),(4,'sm127',NULL,'sablaireau-alola','steel',NULL,NULL,NULL,NULL,'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM127/',NULL),(5,'sm144',NULL,'artikodin','water',NULL,NULL,NULL,NULL,'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM144/',NULL),(6,'sm153',NULL,'brindibou','grass',NULL,NULL,NULL,NULL,'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM153/',NULL),(7,'sm186',NULL,'pyroli','fire',NULL,NULL,NULL,NULL,'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM186/',NULL),(8,'sm182',NULL,'persian','normal',NULL,NULL,NULL,NULL,'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM182/',NULL),(9,'sm219',NULL,'entei','fire',NULL,NULL,NULL,NULL,'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM219/',NULL),(10,'sm235',NULL,'evoli','normal',NULL,NULL,NULL,NULL,'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM235/',NULL),(11,'sm29',NULL,'mimiqui','psychic',NULL,NULL,NULL,NULL,'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM29/',NULL),(12,'sm40',NULL,'bebecaille','dragon',NULL,NULL,NULL,NULL,'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM40/',NULL),(13,'sm54',NULL,'lucario','fighting',NULL,NULL,NULL,NULL,'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM54/',NULL);
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -209,6 +209,10 @@ LOCK TABLES `user` WRITE;
 INSERT INTO `user` VALUES (1,'ketchum','sacha','gotacatchemall@hotmail.fr','love_ondine',1);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping routines for database 'eshop_pkm'
+--
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -219,4 +223,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-12-17 18:47:59
+-- Dump completed on 2021-02-08 16:26:50
