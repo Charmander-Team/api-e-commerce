@@ -21,10 +21,10 @@ const showAllCards = (req, res) => {
         ] = cards;
 
 
-    const sql1 = 'SELECT * FROM product WHERE category_id = "1"';
+    const sql1 = 'SELECT * FROM product WHERE category_id = "1" LIMIT 6';
     connDB.query(sql1, (err, results) => {
         if (err) throw err;
-        results.slice(0, 6).forEach(card_db => {
+        results.forEach(card_db => {
             let card = {
                 img: card_db.image,
                 name: card_db.name,
@@ -37,10 +37,10 @@ const showAllCards = (req, res) => {
         })
     });
 
-    const sql2 = 'SELECT * FROM product WHERE category_id = "2"';
+    const sql2 = 'SELECT * FROM product WHERE category_id = "2" LIMIT 6';
     connDB.query(sql2, (err, results) => {
         if (err) throw err;
-        results.slice(0, 6).forEach(card_db => {
+        results.forEach(card_db => {
             let card = {
                 img: card_db.image,
                 name: card_db.name,
