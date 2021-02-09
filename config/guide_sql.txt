@@ -6,19 +6,6 @@ SHOW TABLES;
 SELECT * FROM tableavoir; 
 DROP TABLE tableasupprimer;
 
-CREATE TABLE product (
-    id INT PRIMARY KEY NOT NULL,
-    ref VARCHAR(100),
-    category_id INT,
-    name VARCHAR(100),
-    energy_type VARCHAR(100),
-    level INT,
-    card_number INT,
-    bid INT,
-    price INT,
-    image VARCHAR(255),
-    `delete` INT
-);
 
 CREATE TABLE category (
     id INT PRIMARY KEY NOT NULL,
@@ -91,29 +78,45 @@ DROP TABLE invoice;
 SHOW TABLES;
 ;
 
+CREATE TABLE product (
+    id INT PRIMARY KEY NOT NULL,
+    ref VARCHAR(100) NOT NULL,
+    category_id INT,
+    name VARCHAR(100) NOT NULL,
+    energy_type VARCHAR(100) NOT NULL,
+    date DATE,
+    bid INT NOT NULL,
+    price INT NOT NULL,
+    image VARCHAR(255) NOT NULL,
+    `delete` INT
+);
 
-INSERT INTO product VALUES (id, ref, category_id, name, energy_type, level, card_number, bid, price, image, delete);
+INSERT INTO product VALUES (id, ref, category_id, name, energy_type, bid, price, image, delete);
 
-INSERT INTO product VALUES ('1', 'sm76', null, 'pikachu', 'electric', null, null, null, null, 'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM76/', null);
-INSERT INTO product VALUES ('2', 'sm226', null, 'dracaufeu', 'fire', null, null, null, null, 'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM226/', null);
+INSERT INTO product VALUES ('1', 'sm76', null, 'pikachu', 'electric', '2021-02-09', '0', '10', 'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM76/', '0');
+INSERT INTO product VALUES ('2', 'sm226', null, 'dracaufeu', 'fire', '2021-02-09', '0', '20', 'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM226/', '0');
 
-INSERT INTO product VALUES ('3', 'sm77', null, 'mewtwo', 'psychic', null, null, null, null, 'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM77/', null);
-INSERT INTO product VALUES ('4', 'sm127', null, 'sablaireau-alola', 'steel', null, null, null, null, 'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM127/', null);
+INSERT INTO product VALUES ('3', 'sm77', null, 'mewtwo', 'psychic', '2021-02-09', '0', '30', 'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM77/', '0');
+INSERT INTO product VALUES ('4', 'sm127', null, 'sablaireau-alola', 'steel', '2021-02-09', '0', '40', 'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM127/', '0');
 
-INSERT INTO product VALUES ('5', 'sm144', null, 'artikodin', 'water', null, null, null, null, 'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM144/', null);
-INSERT INTO product VALUES ('6', 'sm153', null, 'brindibou', 'grass', null, null, null, null, 'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM153/', null);
+INSERT INTO product VALUES ('5', 'sm144', null, 'artikodin', 'water', '2021-02-09', '0', '50', 'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM144/', '0');
+INSERT INTO product VALUES ('6', 'sm153', null, 'brindibou', 'grass', '2021-02-09', '0', '60',  'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM153/', '0');
 
-INSERT INTO product VALUES ('7', 'sm186', null, 'pyroli', 'fire', null, null, null, null, 'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM186/', null);
-INSERT INTO product VALUES ('8', 'sm182', null, 'persian', 'normal', null, null, null, null, 'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM182/', null);
+INSERT INTO product VALUES ('7', 'sm186', null, 'pyroli', 'fire', '2021-02-09', '0', '70', 'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM186/', '0');
+INSERT INTO product VALUES ('8', 'sm182', null, 'persian', 'normal', '2021-02-09', '0', '20', 'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM182/', '0');
 
-INSERT INTO product VALUES ('9', 'sm219', null, 'entei', 'fire', null, null, null, null, 'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM219/', null);
-INSERT INTO product VALUES ('10', 'sm235', null, 'evoli', 'normal', null, null, null, null, 'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM235/', null);
+INSERT INTO product VALUES ('9', 'sm219', null, 'entei', 'fire', '2021-02-09', '0', '120', 'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM219/', '0');
+INSERT INTO product VALUES ('10', 'sm235', null, 'evoli', 'normal', '2021-02-09', '0', '20', 'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM235/', '0');
 
-INSERT INTO product VALUES ('11', 'sm29', null, 'mimiqui', 'psychic', null, null, null, null, 'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM29/', null);
-INSERT INTO product VALUES ('12', 'sm40', null, 'bebecaille', 'dragon', null, null, null, null, 'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM40/', null);
+INSERT INTO product VALUES ('11', 'sm29', null, 'mimiqui', 'psychic', '2021-02-09', '0', '25', 'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM29/', '0');
+INSERT INTO product VALUES ('12', 'sm40', null, 'bebecaille', 'dragon', '2021-02-09', '0', '20', 'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM40/', '0');
 
-INSERT INTO product VALUES ('13', 'sm54', null, 'lucario', 'fighting', null, null, null, null, 'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM54/', null);
+INSERT INTO product VALUES ('13', 'sm54', null, 'lucario', 'fighting', '2021-02-09', '0', '10', 'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM54/', '0');
 
+
+
+EXPORT DB:
+mysqldump --routines -u root -p eshop_pkm > config/eshop_pkm-dump_$(date +%Y-%m-%d_%H.%M.%S).sql
 
 
 
