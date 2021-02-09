@@ -134,14 +134,14 @@ DROP TABLE IF EXISTS `product`;
 CREATE TABLE `product` (
   `id` int(11) NOT NULL,
   `ref` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `category_id` int(11) DEFAULT NULL,
+  `category_id` int(11) NOT NULL,
   `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `energy_type` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `date` date DEFAULT NULL,
   `bid` int(11) NOT NULL,
   `price` int(11) NOT NULL,
   `image` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `delete` int(11) DEFAULT NULL,
+  `delete` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -152,7 +152,7 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` VALUES (1,'sm76',NULL,'pikachu','electric','2021-02-09',0,10,'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM76/',0),(2,'sm226',NULL,'dracaufeu','fire','2021-02-09',0,20,'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM226/',0),(3,'sm77',NULL,'mewtwo','psychic','2021-02-09',0,30,'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM77/',0),(4,'sm127',NULL,'sablaireau-alola','steel','2021-02-09',0,40,'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM127/',0),(5,'sm144',NULL,'artikodin','water','2021-02-09',0,50,'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM144/',0),(6,'sm153',NULL,'brindibou','grass','2021-01-01',0,60,'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM153/',0),(7,'sm186',NULL,'pyroli','fire','2021-01-01',0,70,'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM186/',0),(8,'sm182',NULL,'persian','normal','2021-01-01',0,20,'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM182/',0),(9,'sm219',NULL,'entei','fire','2021-01-01',0,120,'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM219/',0),(10,'sm235',NULL,'evoli','normal','2021-01-01',0,20,'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM235/',0),(11,'sm29',NULL,'mimiqui','psychic','2021-01-01',0,25,'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM29/',0),(12,'sm40',NULL,'bebecaille','dragon','2021-01-01',0,20,'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM40/',0),(13,'sm54',NULL,'lucario','fighting','2021-01-01',0,10,'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM54/',0);
+INSERT INTO `product` VALUES (1,'sm76',1,'pikachu','electric','2021-02-09',0,10,'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM76/',0),(2,'sm226',1,'dracaufeu','fire','2021-02-09',0,20,'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM226/',0),(3,'sm77',1,'mewtwo','psychic','2021-02-09',0,30,'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM77/',0),(4,'sm127',1,'sablaireau-alola','steel','2021-02-09',0,40,'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM127/',0),(5,'sm144',1,'artikodin','water','2021-02-09',0,50,'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM144/',0),(6,'sm153',1,'brindibou','grass','2021-01-01',0,60,'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM153/',0),(7,'sm186',1,'pyroli','fire','2021-01-01',0,70,'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM186/',0),(8,'sm182',1,'persian','normal','2021-01-01',0,20,'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM182/',0),(9,'sm219',1,'entei','fire','2021-01-01',0,120,'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM219/',0),(10,'sm235',1,'evoli','normal','2021-01-01',0,20,'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM235/',0),(11,'sm29',1,'mimiqui','psychic','2021-01-01',0,25,'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM29/',0),(12,'sm40',1,'bebecaille','dragon','2021-01-01',0,20,'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM40/',0),(13,'sm54',2,'lucario','fighting','2021-01-01',0,10,'https://www.pokemon.com/fr/jcc-pokemon/cartes-pokemon/sm-series/smp/SM54/',0);
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -222,4 +222,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-02-09 12:25:44
+-- Dump completed on 2021-02-09 16:14:31
