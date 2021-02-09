@@ -6,3 +6,6 @@ node_modules
 
 # Ignore environnement variables
 config/config.js
+
+# Ignore guide
+config/guide_sql.txt
