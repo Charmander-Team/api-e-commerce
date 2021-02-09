@@ -2,13 +2,62 @@ const mysql = require('mysql');
 const connDB = require('./config/db_connect');
 
 
-
 const showAllCards = (req, res) => {
-    const sql = 'SELECT * FROM product';
-    connDB.query(sql, (err, results) => {
-        if(err) throw err;
-        res.send(results);
+
+    let cards = [
+        {
+            category_id: "1",
+            list: []
+        },
+        {
+            category_id: "2",
+            list: []
+        }
+    ];
+
+    let [
+        {list: list1},
+        {list: list2}
+        ] = cards;
+
+
+    const sql1 = 'SELECT * FROM product WHERE category_id = "1"';
+    connDB.query(sql1, (err, results) => {
+        if (err) throw err;
+        results.slice(0, 6).forEach(card_db => {
+            let card = {
+                img: card_db.image,
+                name: card_db.name,
+                ref: card_db.ref,
+                type: card_db.energy_type,
+                price: card_db.price,
+                bid: card_db.price
+            };
+            list1.push(card);
+        })
     });
+
+    const sql2 = 'SELECT * FROM product WHERE category_id = "2"';
+    connDB.query(sql2, (err, results) => {
+        if (err) throw err;
+        results.slice(0, 6).forEach(card_db => {
+            let card = {
+                img: card_db.image,
+                name: card_db.name,
+                ref: card_db.ref,
+                type: card_db.energy_type,
+                price: card_db.price,
+                bid: card_db.price
+            };
+            list2.push(card);
+        })
+        res.send(cards)
+
+    });
+
+/*
+    res.send(cards)
+*/
 };
 
 const showLatestCards = (req, res) => {
@@ -108,7 +157,28 @@ module.exports = {
 
 
 
+const getBackCardsByCategory = (category_id) => {
+    const sql = 'SELECT * FROM product WHERE category_id = "1"';
+    let all_cards = [];
+    connDB.query(sql, (err, results) => {
+        if (err) throw err;
 
+        results.slice(0, 6).forEach(card_db => {
+            let card = {
+                img: card_db.image,
+                name: card_db.name,
+                ref: card_db.ref,
+                type: card_db.energy_type,
+                price: card_db.price,
+                bid: card_db.price
+            };
+            all_cards.push(card);
+        })
+        //console.log(all_cards);
+    });
+    //console.log(all_cards);
+    return all_cards;
+}
 /*
 //update product
 app.put('/api/products/:id',(req, res) => {
