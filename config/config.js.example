@@ -7,7 +7,7 @@
 const config = {
     host: 'localhost',
     user: 'root',
-    password: 'test',
+    password: 'root',
     database: 'eshop_pkm',
     port: 3006
 }
