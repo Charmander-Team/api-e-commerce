@@ -23,6 +23,9 @@ createRoutes(app);
 
 app.listen(config.port,() =>{
   console.log(`Server started on port ${config.port}`);
-  console.log(`Visit: http://localhost:${config.port}/api/products/`);
-  //console.log(`Visit: http://localhost:${port}/api/products/pikachu`);
+  console.log(`Visit: http://localhost:${config.port}/products/`);
+  console.log(`Visit: http://localhost:${config.port}/products/name/mimiqui`);
+  console.log(`Visit: http://localhost:${config.port}/products/type/fire`);
+  console.log(`Visit: http://localhost:${config.port}/products/ref/sm40`);
+  console.log(`Visit: http://localhost:${config.port}/news/products/`);
 });
