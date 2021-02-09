@@ -4,6 +4,8 @@ const createRoutes = (app) => {
 
     app.get('/api/products', handlers.showAllCards);
 
+    app.get('/api/products/latest', handlers.showLatestCards);
+
     app.get('/api/products/:name', handlers.showCardByName);
 
     app.get('/api/products/type/:type', handlers.showCardsFromType);

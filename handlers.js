@@ -11,6 +11,35 @@ const showAllCards = (req, res) => {
     });
 };
 
+const showLatestCards = (req, res) => {
+
+    const current_ts = Date.now()/1000;
+    const sql = `SELECT * FROM product WHERE date IS NOT NULL`;
+
+    connDB.query(sql, (err, results) => {
+        if(err) throw err;
+        let latest_cards = [];
+        results.forEach(card_db => {
+            const {'date': field_date} = card_db; //console.log(current);
+            const field_date_ts = field_date.getTime()/1000; //console.log(field_date_timestamp);
+            const one_month_ts = 60 * 60 * 24 * 30;
+            if ( current_ts - field_date_ts <= one_month_ts) {
+                let card = {
+                    id_category: card_db.id_category,
+                    img: card_db.image,
+                    name: card_db.name,
+                    ref: card_db.ref,
+                    type: card_db.energy_type,
+                    price: card_db.price,
+                    bid: card_db.price
+                }
+            latest_cards.push(card);
+            }
+        })
+        res.send(latest_cards);
+    });
+};
+
 const showCardByName = (req, res) => {
     let sql = `SELECT * FROM product WHERE name='${req.params.name}'`;
     connDB.query(sql, (err, results) => {
@@ -70,6 +99,7 @@ const deleteCard = (req, res) => {
 
 module.exports = {
     showAllCards,
+    showLatestCards,
     showCardByName,
     showCardsFromType,
     addSalamecheCard,
