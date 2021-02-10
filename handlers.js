@@ -6,18 +6,23 @@ const showAllCards = (req, res) => {
 
     let cards = [
         {
-            category_id: "1",
+            title_list: "Nouveautés",
             list: []
         },
         {
-            category_id: "2",
+            title_list: "Cartes Pokemon",
+            list: []
+        },
+        {
+            title_list: "Cartes dresseur",
             list: []
         }
     ];
 
     let [
-        {list: list1},
-        {list: list2}
+        {list: news_list},
+        {list: pokemon_list},
+        {list: dresseur_list}
         ] = cards;
 
 
@@ -33,7 +38,7 @@ const showAllCards = (req, res) => {
                 price: card_db.price,
                 bid: card_db.bid
             };
-            list1.push(card);
+            pokemon_list.push(card);
         })
     });
 
@@ -49,7 +54,7 @@ const showAllCards = (req, res) => {
                 price: card_db.price,
                 bid: card_db.bid
             };
-            list2.push(card);
+            dresseur_list.push(card);
         })
         res.send(cards)
 
