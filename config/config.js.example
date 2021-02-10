@@ -9,7 +9,7 @@ const config = {
     user: 'root',
     password: 'root',
     database: 'eshop_pkm',
-    port: 3006
+    port: 3000
 }
 
 module.exports = config;
