@@ -34,6 +34,7 @@ const showAllCards = (req, res) => {
             const one_month_ts = 60 * 60 * 24 * 30;
             if (current_ts - field_date_ts <= one_month_ts) {
                 let card = {
+                    card_id: card_db.id,
                     img: card_db.image,
                     name: card_db.name,
                     ref: card_db.ref,
@@ -53,6 +54,7 @@ const showAllCards = (req, res) => {
         if (err) throw err;
         results.forEach(card_db => {
             let card = {
+                card_id: card_db.id,
                 img: card_db.image,
                 name: card_db.name,
                 ref: card_db.ref,
@@ -69,6 +71,7 @@ const showAllCards = (req, res) => {
         if (err) throw err;
         results.forEach(card_db => {
             let card = {
+                card_id: card_db.id,
                 img: card_db.image,
                 name: card_db.name,
                 ref: card_db.ref,
