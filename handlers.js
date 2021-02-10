@@ -97,7 +97,7 @@ const showLatestCards = (req, res) => {
       const one_month_ts = 60 * 60 * 24 * 30;
       if (current_ts - field_date_ts <= one_month_ts) {
         let card = {
-          id_category: card_db.id_category,
+          category_id: card_db.category_id,
           img: card_db.image,
           name: card_db.name,
           ref: card_db.ref,
