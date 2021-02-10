@@ -24,10 +24,10 @@ const showAllCards = (req, res) => {
         {list: trainer_cards_list}
         ] = cards;
 
-    const sql_news = "SELECT * FROM product WHERE date IS NOT NULL ORDER BY RAND();";
+    const sql_news = "SELECT * FROM product WHERE date IS NOT NULL;";
     connDB.query(sql_news, (err, results) => {
         if (err) throw err;
-        results.slice(6).forEach((card_db) => {
+        results.forEach((card_db) => {
             const current_ts = Date.now() / 1000;
             const { date: field_date } = card_db; //console.log(current);
             const field_date_ts = field_date.getTime() / 1000; //console.log(field_date_timestamp);
@@ -40,10 +40,12 @@ const showAllCards = (req, res) => {
                     type: card_db.energy_type,
                     price: card_db.price,
                     bid: card_db.bid,
+                    //date: card_db.date
                 };
-                news_cards_list.push(card); console.log(news_cards_list);
+                news_cards_list.push(card);
             }
         });
+        news_cards_list.length = 6; //console.log(news_cards_list.length);
     });
 
     const sql_pkm = 'SELECT * FROM product WHERE category_id = "1" ORDER BY RAND() LIMIT 6;';
@@ -78,10 +80,6 @@ const showAllCards = (req, res) => {
         })
         res.send(cards)
   });
-
-  /*
-    res.send(cards)
-*/
 };
 
 const showLatestCards = (req, res) => {
