@@ -1,4 +1,3 @@
-const mysql = require("mysql");
 const connDB = require("./config/db_connect");
 
 const showAllCards = (req, res) => {
