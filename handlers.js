@@ -20,14 +20,39 @@ const showAllCards = (req, res) => {
     ];
 
     let [
-        {list: news_list},
-        {list: pokemon_list},
-        {list: dresseur_list}
+        {list: news_cards_list},
+        {list: pokemon_cards_list},
+        {list: trainer_cards_list}
         ] = cards;
 
+    const sql_news = "SELECT * FROM product WHERE date IS NOT NULL ORDER BY RAND() LIMIT 6;";
+    connDB.query(sql_news, (err, results) => {
+        if (err) throw err;
+        //console.log(results);
+        let latest_cards = [];
+        results.forEach((card_db) => {
+            const current_ts = Date.now() / 1000;
+            const { date: field_date } = card_db; //console.log(current);
+            const field_date_ts = field_date.getTime() / 1000; //console.log(field_date_timestamp);
+            const one_month_ts = 60 * 60 * 24 * 30;
+            if (current_ts - field_date_ts <= one_month_ts) {
+                let card = {
+                    img: card_db.image,
+                    name: card_db.name,
+                    ref: card_db.ref,
+                    type: card_db.energy_type,
+                    price: card_db.price,
+                    bid: card_db.bid,
+                };
+                latest_cards.push(card); //console.log(card);
+            }
+        });
+        news_cards_list.push(latest_cards); //console.log(latest_cards);
 
-    const sql1 = 'SELECT * FROM product WHERE category_id = "1" LIMIT 6';
-    connDB.query(sql1, (err, results) => {
+    });
+
+    const sql_pkm = 'SELECT * FROM product WHERE category_id = "1" ORDER BY RAND() LIMIT 6;';
+    connDB.query(sql_pkm, (err, results) => {
         if (err) throw err;
         results.forEach(card_db => {
             let card = {
@@ -38,12 +63,12 @@ const showAllCards = (req, res) => {
                 price: card_db.price,
                 bid: card_db.bid
             };
-            pokemon_list.push(card);
+            pokemon_cards_list.push(card);
         })
     });
 
-    const sql2 = 'SELECT * FROM product WHERE category_id = "2" LIMIT 6';
-    connDB.query(sql2, (err, results) => {
+    const sql_trainer = 'SELECT * FROM product WHERE category_id = "2" ORDER BY RAND() LIMIT 6';
+    connDB.query(sql_trainer, (err, results) => {
         if (err) throw err;
         results.forEach(card_db => {
             let card = {
@@ -54,7 +79,7 @@ const showAllCards = (req, res) => {
                 price: card_db.price,
                 bid: card_db.bid
             };
-            dresseur_list.push(card);
+            trainer_cards_list.push(card);
         })
         res.send(cards)
   });
