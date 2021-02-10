@@ -146,13 +146,113 @@ const deleteCard = (req, res) => {
     });
 }
 
+
+const getClient = (req, res) => {
+    let sql = `SELECT * FROM user WHERE password='${req.params.mdp}' AND mail ='${req.params.mail}'`;
+    connDB.query(sql, (err, res) => {
+        if(err) throw err;
+        let clientArray = [];
+        res.forEach(client => {
+            const clientFormat = {
+
+                nom : client.name,
+                prenom : client.firstname,
+                mail: client.mail,
+                mdp: client.password
+
+            }
+            clientArray.push(clientFormat)
+        });
+        res.send(clientArray)
+    });
+
+}
+
+const addClient = (req, res) => {
+    if(err) throw err;
+
+    const maxId = 'SELECT max(Id) FROM user';
+    connDB.query(maxId, (err, res) => {
+        if(err) throw err;
+
+        const lastClient = res[0]['max(Id)'];
+
+        const client = {
+            name: "Paul",
+            firstname : "Michel",
+            mail: 'blabla@hotmail.fr',
+            password: 'testmdp',
+            admin: 1,
+        };
+
+        client.id = lastClient + 1;
+
+        const sql = 'INSERT INTO user SET ?';
+
+        connDB.query(sql, client, (err, res) => {
+            if(err) throw err;
+            res.send(res);
+        });
+    });
+}
+
+const getCategories = (req, res) => {
+    const sql = `SELECT * FROM category`;
+
+    connDB.query(sql, (err, results) => {
+        if(err) throw err;
+        let categoryArray = [];
+        results.forEach(category => {
+            let categoryFormat =[
+                {
+                    id: category.id,
+                    nom: category.name,
+                    image: category.image,
+                    supprimer: category.delete
+                }
+            ]
+            categoryArray.push(categoryFormat)
+        });
+        res.send(categoryArray)
+    });
+
+}
+
+const addCategory = (req, res) => {
+
+    const maxId = 'SELECT max(Id) FROM category';
+    connDB.query(maxId, (err, results) => {
+        if(err) throw err;
+
+        const lastCategory = results[0]['max(Id)'];
+
+        const category = {
+            name: "Feu",
+            image:"https://www.g33kmania.com/wp-content/uploads/feu-symbole.png",
+            delete: null,
+        };
+
+        category.id = lastCategory + 1;
+
+        const sql = 'INSERT INTO category SET ?';
+
+
+            res.send(res);
+
+    });
+}
+
 module.exports = {
     showAllCards,
     showLatestCards,
     showCardByName,
     showCardsFromType,
     addSalamecheCard,
-    deleteCard
+    deleteCard,
+    getClient,
+    addClient,
+    getCategories,
+    addCategory
 };
 
 
