@@ -130,7 +130,7 @@ const addSalamecheCard = (req, res) => {
 };
 
 const deleteCard = (req, res) => {
-  let sql = `DELETE FROM product WHERE id='${req.params.id}'`;
+  const sql = `DELETE FROM product WHERE id='${req.params.id}'`;
   connDB.query(sql, (err, results) => {
     if (err) throw err;
     res.send(results);
@@ -138,31 +138,28 @@ const deleteCard = (req, res) => {
 };
 
 const getClient = (req, res) => {
-  let sql = `SELECT * FROM user WHERE password='${req.params.mdp}' AND mail ='${req.params.mail}'`;
-  connDB.query(sql, (err, res) => {
-    if (err) throw err;
-    let clientArray = [];
-    res.forEach((client) => {
-      const clientFormat = {
-        nom: client.name,
-        prenom: client.firstname,
-        mail: client.mail,
-        mdp: client.password,
-      };
+  const sql = `select * from user where password='${req.params.mdp}' and mail ='${req.params.mail}'`;
+  let clientArray = [];
+  connDB.query(sql, (err, results) => {
+    results.forEach((user) => {
+      let clientFormat = [
+        {
+          nom: user.name,
+          prenom: user.firstname,
+          mail: user.mail,
+          mdp: user.password,
+        },
+      ];
       clientArray.push(clientFormat);
+      res.send(clientArray);
     });
-    res.send(clientArray);
   });
 };
 
 const addClient = (req, res) => {
-  if (err) throw err;
-
   const maxId = "SELECT max(Id) FROM user";
-  connDB.query(maxId, (err, res) => {
-    if (err) throw err;
-
-    const lastClient = res[0]["max(Id)"];
+  connDB.query(maxId, (err, results) => {
+    const lastClient = results[0]["max(Id)"];
 
     const client = {
       name: "Paul",
@@ -176,9 +173,9 @@ const addClient = (req, res) => {
 
     const sql = "INSERT INTO user SET ?";
 
-    connDB.query(sql, client, (err, res) => {
+    connDB.query(sql, client, (err, results) => {
       if (err) throw err;
-      res.send(res);
+      res.send(results);
     });
   });
 };
@@ -221,7 +218,9 @@ const addCategory = (req, res) => {
 
     const sql = "INSERT INTO category SET ?";
 
-    res.send(res);
+    connDB.query(sql, category, (err, results) => {
+      res.send(results);
+    });
   });
 };
 
