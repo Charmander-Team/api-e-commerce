@@ -31,7 +31,7 @@ const showAllCards = (req, res) => {
                 ref: card_db.ref,
                 type: card_db.energy_type,
                 price: card_db.price,
-                bid: card_db.price
+                bid: card_db.bid
             };
             list1.push(card);
         })
@@ -47,7 +47,7 @@ const showAllCards = (req, res) => {
                 ref: card_db.ref,
                 type: card_db.energy_type,
                 price: card_db.price,
-                bid: card_db.price
+                bid: card_db.bid
             };
             list2.push(card);
         })
@@ -80,7 +80,7 @@ const showLatestCards = (req, res) => {
                     ref: card_db.ref,
                     type: card_db.energy_type,
                     price: card_db.price,
-                    bid: card_db.price
+                    bid: card_db.bid
                 }
             latest_cards.push(card);
             }
