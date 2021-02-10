@@ -98,7 +98,7 @@ const showLatestCards = (req, res) => {
       const one_month_ts = 60 * 60 * 24 * 30;
       if (current_ts - field_date_ts <= one_month_ts) {
         let card = {
-          category_id: card_db.category_id,
+          category_id: card_db.id,
           img: card_db.image,
           name: card_db.name,
           ref: card_db.ref,
@@ -121,7 +121,24 @@ const showCardByName = (req, res) => {
   });
 };
 
-const showCardsFromType = (req, res) => {
+const showCardById = (req, res) => {
+    let sql = `SELECT * FROM product WHERE id='${req.params.id}'`;
+    connDB.query(sql, (err, results) => {
+        if (err) throw err;
+        let card = {
+            category_id: results[0].id,
+            img: results[0].image,
+            name: results[0].name,
+            ref: results[0].ref,
+            type: results[0].energy_type,
+            price: results[0].price,
+            bid: results[0].bid,
+        }
+        res.send(card);
+    });
+};
+
+const showCardsByType = (req, res) => {
   let sql = `SELECT * FROM product WHERE energy_type='${req.params.type}'`;
   connDB.query(sql, (err, results) => {
     if (err) throw err;
@@ -261,7 +278,8 @@ module.exports = {
   showAllCards,
   showLatestCards,
   showCardByName,
-  showCardsFromType,
+  showCardById,
+  showCardsByType,
   addSalamecheCard,
   deleteCard,
   getClient,
