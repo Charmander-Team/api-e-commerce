@@ -4,7 +4,7 @@
 ### Create a database DB:
 connect at your sql server:
 ````shell
-$ mysql -u 'username' -p
+$ mysql -u username -p
 ````
 
 do:
@@ -19,7 +19,7 @@ exit;
 ### The DUMP:
 You need to export the DB already done in your DB:
 ``````sql
-mysql -u 'username' -p dbname < config/eshop_pkm-dump.sql
+mysql -u username -p eshop_pkm < config/eshop_pkm-dump_XXXX-XX-XX_XX.XX.XX.sql
 ``````
 
 # Step 1:
@@ -33,7 +33,7 @@ $ npm install
 ---
 
 # Step 2
-Follow the instructions in `config/config.example`
+Follow the instructions in `config/config.js.example`
 
 
 ---
