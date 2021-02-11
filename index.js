@@ -20,7 +20,6 @@ app.use((req, res, next) => {
 createRoutes(app);
 
 //Server listening
-
 app.listen(config.api_port,() =>{
   console.log(`Server started on port ${config.api_port}`);
   console.log(`Visit: http://localhost:${config.api_port}/products/`);
