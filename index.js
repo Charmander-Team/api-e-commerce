@@ -21,11 +21,11 @@ createRoutes(app);
 
 //Server listening
 
-app.listen(config.port,() =>{
-  console.log(`Server started on port ${config.port}`);
-  console.log(`Visit: http://localhost:${config.port}/products/`);
-  console.log(`Visit: http://localhost:${config.port}/products/name/mimiqui`);
-  console.log(`Visit: http://localhost:${config.port}/products/type/fire`);
-  console.log(`Visit: http://localhost:${config.port}/products/ref/sm40`);
-  console.log(`Visit: http://localhost:${config.port}/news/products/`);
+app.listen(config.api_port,() =>{
+  console.log(`Server started on port ${config.api_port}`);
+  console.log(`Visit: http://localhost:${config.api_port}/products/`);
+  console.log(`Visit: http://localhost:${config.api_port}/products/name/mimiqui`);
+  console.log(`Visit: http://localhost:${config.api_port}/products/type/fire`);
+  console.log(`Visit: http://localhost:${config.api_port}/products/ref/sm40`);
+  console.log(`Visit: http://localhost:${config.api_port}/news/products/`);
 });

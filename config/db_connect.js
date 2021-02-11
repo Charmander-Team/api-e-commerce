@@ -3,10 +3,10 @@ const config = require('./config');
 
 //create database connection
 const connDB = mysql.createConnection({
-    host: config.host,
-    user: config.user,
-    password: config.password,
-    database: config.database
+    host: config.sql_config.host,
+    user: config.sql_config.user,
+    password: config.sql_config.password,
+    database: config.sql_config.database
 });
 
 //connect to database
