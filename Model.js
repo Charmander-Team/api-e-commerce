@@ -24,5 +24,4 @@ try {
 }
 
 //on exporte pour utiliser notre connexion depuis les autre fichiers.
-//var exports = module.exports = {};
-//exports.sequelize = sequelize;
+module.exports = { sequelize };
