@@ -1,18 +1,20 @@
 /**
  * You must have to:
  *  - copy this files and rename it "config.js"
- *  - edit this one with your sql ID
+ *  - edit this one with your sql ID and choose a port to launch the API
  */
 
-const config = {
+const sql_config = {
     host: 'localhost',
     user: 'root',
     password: 'root',
     database: 'eshop_pkm',
-    port: 3006
 }
 
-module.exports = config;
+const api_port = 3000;
+
+module.exports.sql_config = sql_config;
+module.exports.api_port = api_port;
 
 
 

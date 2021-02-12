@@ -1,56 +1,87 @@
-const mysql = require("mysql");
 const connDB = require("./config/db_connect");
 
 const showAllCards = (req, res) => {
-  let cards = [
-    {
-      category_id: "1",
-      list: [],
-    },
-    {
-      category_id: "2",
-      list: [],
-    },
-  ];
 
-  let [{ list: list1 }, { list: list2 }] = cards;
+    let cards = [
+        {
+            title_list: "Nouveautés",
+            list: []
+        },
+        {
+            title_list: "Cartes Pokemon",
+            list: []
+        },
+        {
+            title_list: "Cartes dresseur",
+            list: []
+        }
+    ];
 
-  const sql1 = 'SELECT * FROM product WHERE category_id = "1" LIMIT 6';
-  connDB.query(sql1, (err, results) => {
-    if (err) throw err;
-    results.forEach((card_db) => {
-      let card = {
-        img: card_db.image,
-        name: card_db.name,
-        ref: card_db.ref,
-        type: card_db.energy_type,
-        price: card_db.price,
-        bid: card_db.bid,
-      };
-      list1.push(card);
+    let [
+        {list: news_cards_list},
+        {list: pokemon_cards_list},
+        {list: trainer_cards_list}
+        ] = cards;
+
+    const sql_news = "SELECT * FROM product WHERE date IS NOT NULL;";
+    connDB.query(sql_news, (err, results) => {
+        if (err) throw err;
+        results.forEach((card_db) => {
+            const current_ts = Date.now() / 1000;
+            const { date: field_date } = card_db; //console.log(current);
+            const field_date_ts = field_date.getTime() / 1000; //console.log(field_date_timestamp);
+            const one_month_ts = 60 * 60 * 24 * 30;
+            if (current_ts - field_date_ts <= one_month_ts) {
+                let card = {
+                    card_id: card_db.id,
+                    img: card_db.image,
+                    name: card_db.name,
+                    ref: card_db.ref,
+                    type: card_db.energy_type,
+                    price: card_db.price,
+                    bid: card_db.bid,
+                    //date: card_db.date
+                };
+                news_cards_list.push(card);
+            }
+        });
+        news_cards_list.length = 6; //console.log(news_cards_list.length);
     });
-  });
 
-  const sql2 = 'SELECT * FROM product WHERE category_id = "2" LIMIT 6';
-  connDB.query(sql2, (err, results) => {
-    if (err) throw err;
-    results.forEach((card_db) => {
-      let card = {
-        img: card_db.image,
-        name: card_db.name,
-        ref: card_db.ref,
-        type: card_db.energy_type,
-        price: card_db.price,
-        bid: card_db.bid,
-      };
-      list2.push(card);
+    const sql_pkm = 'SELECT * FROM product WHERE category_id = "1" ORDER BY RAND() LIMIT 6;';
+    connDB.query(sql_pkm, (err, results) => {
+        if (err) throw err;
+        results.forEach(card_db => {
+            let card = {
+                card_id: card_db.id,
+                img: card_db.image,
+                name: card_db.name,
+                ref: card_db.ref,
+                type: card_db.energy_type,
+                price: card_db.price,
+                bid: card_db.bid
+            };
+            pokemon_cards_list.push(card);
+        })
     });
-    res.send(cards);
-  });
 
-  /*
-    res.send(cards)
-*/
+    const sql_trainer = 'SELECT * FROM product WHERE category_id = "2" ORDER BY RAND() LIMIT 6';
+    connDB.query(sql_trainer, (err, results) => {
+        if (err) throw err;
+        results.forEach(card_db => {
+            let card = {
+                card_id: card_db.id,
+                img: card_db.image,
+                name: card_db.name,
+                ref: card_db.ref,
+                type: card_db.energy_type,
+                price: card_db.price,
+                bid: card_db.bid
+            };
+            trainer_cards_list.push(card);
+        })
+        res.send(cards)
+  });
 };
 
 const showLatestCards = (req, res) => {
@@ -66,7 +97,7 @@ const showLatestCards = (req, res) => {
       const one_month_ts = 60 * 60 * 24 * 30;
       if (current_ts - field_date_ts <= one_month_ts) {
         let card = {
-          id_category: card_db.id_category,
+          category_id: card_db.id,
           img: card_db.image,
           name: card_db.name,
           ref: card_db.ref,
@@ -77,7 +108,7 @@ const showLatestCards = (req, res) => {
         latest_cards.push(card);
       }
     });
-    res.send(latest_cards);
+    res.send(latest_cards); console.log(latest_cards);
   });
 };
 
@@ -89,7 +120,24 @@ const showCardByName = (req, res) => {
   });
 };
 
-const showCardsFromType = (req, res) => {
+const showCardById = (req, res) => {
+    let sql = `SELECT * FROM product WHERE id='${req.params.id}'`;
+    connDB.query(sql, (err, results) => {
+        if (err) throw err;
+        let card = {
+            category_id: results[0].id,
+            img: results[0].image,
+            name: results[0].name,
+            ref: results[0].ref,
+            type: results[0].energy_type,
+            price: results[0].price,
+            bid: results[0].bid,
+        }
+        res.send(card);
+    });
+};
+
+const showCardsByType = (req, res) => {
   let sql = `SELECT * FROM product WHERE energy_type='${req.params.type}'`;
   connDB.query(sql, (err, results) => {
     if (err) throw err;
@@ -228,7 +276,8 @@ module.exports = {
   showAllCards,
   showLatestCards,
   showCardByName,
-  showCardsFromType,
+  showCardById,
+  showCardsByType,
   addSalamecheCard,
   deleteCard,
   getClient,

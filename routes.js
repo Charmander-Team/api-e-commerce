@@ -4,11 +4,13 @@ const createRoutes = (app) => {
 
     app.get('/products', handlers.showAllCards);
 
+    app.get('/products/id/:id', handlers.showCardById);
+
+    app.get('/products/news', handlers.showLatestCards);
+
     app.get('/products/name/:name', handlers.showCardByName);
 
-    app.get('/products/type/:type', handlers.showCardsFromType);
-
-    app.get('/news/products', handlers.showLatestCards);
+    app.get('/products/type/:type', handlers.showCardsByType);
 
     app.post('/api/products/salameche', handlers.addSalamecheCard);
 
