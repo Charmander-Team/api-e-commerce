@@ -34,13 +34,13 @@ const showAllCards = (req, res) => {
             if (current_ts - field_date_ts <= one_month_ts) {
                 let card = {
                     card_id: card_db.id,
-                    img: card_db.image,
-                    name: card_db.name,
                     ref: card_db.ref,
+                    name: card_db.name,
+                    description: card_db.description,
                     type: card_db.energy_type,
-                    price: card_db.price,
                     bid: card_db.bid,
-                    //date: card_db.date
+                    price: card_db.price,
+                    img: card_db.image,
                 };
                 news_cards_list.push(card);
             }
@@ -54,12 +54,13 @@ const showAllCards = (req, res) => {
         results.forEach(card_db => {
             let card = {
                 card_id: card_db.id,
-                img: card_db.image,
-                name: card_db.name,
                 ref: card_db.ref,
+                name: card_db.name,
+                description: card_db.description,
                 type: card_db.energy_type,
+                bid: card_db.bid,
                 price: card_db.price,
-                bid: card_db.bid
+                img: card_db.image,
             };
             pokemon_cards_list.push(card);
         })
@@ -71,12 +72,13 @@ const showAllCards = (req, res) => {
         results.forEach(card_db => {
             let card = {
                 card_id: card_db.id,
-                img: card_db.image,
-                name: card_db.name,
                 ref: card_db.ref,
+                name: card_db.name,
+                description: card_db.description,
                 type: card_db.energy_type,
+                bid: card_db.bid,
                 price: card_db.price,
-                bid: card_db.bid
+                img: card_db.image,
             };
             trainer_cards_list.push(card);
         })
@@ -97,13 +99,14 @@ const showLatestCards = (req, res) => {
       const one_month_ts = 60 * 60 * 24 * 30;
       if (current_ts - field_date_ts <= one_month_ts) {
         let card = {
-          category_id: card_db.id,
-          img: card_db.image,
-          name: card_db.name,
-          ref: card_db.ref,
-          type: card_db.energy_type,
-          price: card_db.price,
-          bid: card_db.bid,
+            card_id: card_db.id,
+            ref: card_db.ref,
+            name: card_db.name,
+            description: card_db.description,
+            type: card_db.energy_type,
+            bid: card_db.bid,
+            price: card_db.price,
+            img: card_db.image,
         };
         latest_cards.push(card);
       }
