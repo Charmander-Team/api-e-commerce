@@ -1,120 +1,16 @@
-const connDB = require("./config/db_connect");
+//const connDB = require("./config/db_connect");
+const sequelize = require("sequelize");
+const DataTypes = require("./config/db_connect");
+const product = require("./models/product")(sequelize, DataTypes);
 
 const showAllCards = (req, res) => {
 
-    let cards = [
-        {
-            title_list: "Nouveautés",
-            list: []
-        },
-        {
-            title_list: "Cartes Pokemon",
-            list: []
-        },
-        {
-            title_list: "Cartes dresseur",
-            list: []
-        }
-    ];
+  product.findAll().then( (result) => res.json(result) )
 
-    let [
-        {list: news_cards_list},
-        {list: pokemon_cards_list},
-        {list: trainer_cards_list}
-        ] = cards;
 
-    const sql_news = "SELECT * FROM product WHERE date IS NOT NULL;";
-    connDB.query(sql_news, (err, results) => {
-        if (err) throw err;
-        results.forEach((card_db) => {
-            const current_ts = Date.now() / 1000;
-            const { date: field_date } = card_db; //console.log(current);
-            const field_date_ts = field_date.getTime() / 1000; //console.log(field_date_timestamp);
-            const one_month_ts = 60 * 60 * 24 * 30;
-            if (current_ts - field_date_ts <= one_month_ts) {
-                let card = {
-                    card_id: card_db.id,
-                    ref: card_db.ref,
-                    name: card_db.name,
-                    description: card_db.description,
-                    type: card_db.energy_type,
-                    bid: card_db.bid,
-                    price: card_db.price,
-                    img: card_db.image,
-                };
-                news_cards_list.push(card);
-            }
-        });
-        news_cards_list.length = 6; //console.log(news_cards_list.length);
-    });
-
-    const sql_pkm = 'SELECT * FROM product WHERE category_id = "1" ORDER BY RAND() LIMIT 6;';
-    connDB.query(sql_pkm, (err, results) => {
-        if (err) throw err;
-        results.forEach(card_db => {
-            let card = {
-                card_id: card_db.id,
-                ref: card_db.ref,
-                name: card_db.name,
-                description: card_db.description,
-                type: card_db.energy_type,
-                bid: card_db.bid,
-                price: card_db.price,
-                img: card_db.image,
-            };
-            pokemon_cards_list.push(card);
-        })
-    });
-
-    const sql_trainer = 'SELECT * FROM product WHERE category_id = "2" ORDER BY RAND() LIMIT 6';
-    connDB.query(sql_trainer, (err, results) => {
-        if (err) throw err;
-        results.forEach(card_db => {
-            let card = {
-                card_id: card_db.id,
-                ref: card_db.ref,
-                name: card_db.name,
-                description: card_db.description,
-                type: card_db.energy_type,
-                bid: card_db.bid,
-                price: card_db.price,
-                img: card_db.image,
-            };
-            trainer_cards_list.push(card);
-        })
-        res.send(cards)
-  });
 };
 
-const showLatestCards = (req, res) => {
-  const current_ts = Date.now() / 1000;
-  const sql = `SELECT * FROM product WHERE date IS NOT NULL`;
-
-  connDB.query(sql, (err, results) => {
-    if (err) throw err;
-    let latest_cards = [];
-    results.forEach((card_db) => {
-      const { date: field_date } = card_db; //console.log(current);
-      const field_date_ts = field_date.getTime() / 1000; //console.log(field_date_timestamp);
-      const one_month_ts = 60 * 60 * 24 * 30;
-      if (current_ts - field_date_ts <= one_month_ts) {
-        let card = {
-            card_id: card_db.id,
-            ref: card_db.ref,
-            name: card_db.name,
-            description: card_db.description,
-            type: card_db.energy_type,
-            bid: card_db.bid,
-            price: card_db.price,
-            img: card_db.image,
-        };
-        latest_cards.push(card);
-      }
-    });
-    res.send(latest_cards); console.log(latest_cards);
-  });
-};
-
+/*
 const showCardByName = (req, res) => {
   let sql = `SELECT * FROM product WHERE name='${req.params.name}'`;
   connDB.query(sql, (err, results) => {
@@ -274,11 +170,11 @@ const addCategory = (req, res) => {
     });
   });
 };
+*/
 
 module.exports = {
   showAllCards,
-  showLatestCards,
-  showCardByName,
+/*  showCardByName,
   showCardById,
   showCardsByType,
   addSalamecheCard,
@@ -286,37 +182,5 @@ module.exports = {
   getClient,
   addClient,
   getCategories,
-  addCategory,
+  addCategory,*/
 };
-
-const getBackCardsByCategory = (category_id) => {
-  const sql = 'SELECT * FROM product WHERE category_id = "1"';
-  let all_cards = [];
-  connDB.query(sql, (err, results) => {
-    if (err) throw err;
-
-    results.slice(0, 6).forEach((card_db) => {
-      let card = {
-        img: card_db.image,
-        name: card_db.name,
-        ref: card_db.ref,
-        type: card_db.energy_type,
-        price: card_db.price,
-        bid: card_db.price,
-      };
-      all_cards.push(card);
-    });
-    //console.log(all_cards);
-  });
-  //console.log(all_cards);
-  return all_cards;
-};
-/*
-//update product
-app.put('/api/products/:id',(req, res) => {
- let sql = "UPDATE product SET product_name='"+req.body.product_name+"', product_price='"+req.body.product_price+"' WHERE product_id="+req.params.id;
- let query = conn.query(sql, (err, results) => {
-   if(err) throw err;
-   res.send(JSON.stringify({"status": 200, "error": null, "response": results}));
- });
-*/

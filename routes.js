@@ -4,9 +4,7 @@ const createRoutes = (app) => {
 
     app.get('/products', handlers.showAllCards);
 
-    app.get('/products/id/:id', handlers.showCardById);
-
-    app.get('/products/news', handlers.showLatestCards);
+/*    app.get('/products/id/:id', handlers.showCardById);
 
     app.get('/products/name/:name', handlers.showCardByName);
 
@@ -23,7 +21,7 @@ const createRoutes = (app) => {
 
     app.get("/api/categories", handlers.getCategories);
 
-    app.post("/api/category", handlers.addCategory);
+    app.post("/api/category", handlers.addCategory);*/
 }
 
 module.exports = createRoutes;

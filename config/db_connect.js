@@ -1,18 +1,11 @@
-const mysql = require('mysql');
 const config = require('./config');
 
-//create database connection
-const connDB = mysql.createConnection({
+const Sequelize = require('sequelize');
+const sequelize = new Sequelize(config.sql_config.database, config.sql_config.user, config.sql_config.password, {
     host: config.sql_config.host,
-    user: config.sql_config.user,
-    password: config.sql_config.password,
-    database: config.sql_config.database
+    dialect: 'mysql',
+    logging: false,//passer a true pour voir les différentes requêtes effectuées par l'ORM
 });
 
-//connect to database
-connDB.connect((err) =>{
-    if(err) throw err;
-    console.log('Mysql Connected...');
-});
-
-module.exports = connDB;
+//on exporte pour utiliser notre connexion depuis les autre fichiers.
+module.exports = { sequelize };
