@@ -1,11 +1,10 @@
-const config = require('./config.js');
+const config = require('../config/config.js');
 
 const Sequelize = require('sequelize');
 const sequelize = new Sequelize(config.sql_config.database, config.sql_config.user, config.sql_config.password, {
     host: config.sql_config.host,
     dialect: config.sql_config.dialect,
     operatorsAliases: false,
-    logging: false,//passer a true pour voir les différentes requêtes effectuées par l'ORM
 
     pool: {
         max: config.sql_config.pool.max,

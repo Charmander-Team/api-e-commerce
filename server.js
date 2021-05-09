@@ -1,5 +1,4 @@
 const express = require('express');
-//const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const app = express();
@@ -10,7 +9,7 @@ const corsOptions = {
 
 const config = require('./config/config');
 
-const db = require("./models/product.model");
+const db = require("./models/index.js");
 db.sequelize.sync();
 
 app.use(cors(corsOptions));

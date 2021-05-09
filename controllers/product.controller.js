@@ -25,7 +25,7 @@ const createCard = (req, res) => {
         image: req.body.image
     };
 
-    // Save Tutorial in the database
+    // Save Product in the database
     Product.create(product)
         .then(data => {
             res.send(data);
