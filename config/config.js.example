@@ -9,6 +9,13 @@ const sql_config = {
     user: 'root',
     password: 'root',
     database: 'eshop_pkm',
+    dialect: 'mysql',
+    pool: {
+        max: 5,
+        min: 0,
+        acquire: 30000,
+        idle: 1000
+    }
 }
 
 const api_port = 3000;
