@@ -20,6 +20,8 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 db.product = require("./product.model.js")(sequelize, Sequelize);
+db.category = require("./category.model.js")(sequelize, Sequelize);
+
 
 //on exporte pour utiliser notre connexion depuis les autre fichiers.
 module.exports = db;
