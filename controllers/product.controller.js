@@ -50,7 +50,42 @@ const showAllCards = (req, res) => {
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while retrieving product."
+                    err.message || "Some error occurred while retrieving products."
+            });
+        });
+};
+
+// Retrieve all products / cards with a category ID from the database.
+const showAllCardsByCategory = (req, res) => {
+    const category_id = req.params.category_id
+
+    Product.findAll({ where: {category_id: category_id} })
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while retrieving products with category ID=" + category_id
+            });
+        });
+};
+
+// Retrieve all products / cards with a category ID from the database.
+const showAllPokemonCardsByType = (req, res) => {
+    const energy_type = req.params.energy_type
+
+    Product.findAll({ where: {
+        category_id: 2, // 2 => pokemon card
+        energy_type: energy_type
+    }})
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || `Some error occurred while retrieving products with ${energy_type} type`
             });
         });
 };
@@ -156,6 +191,8 @@ module.exports = {
     createCard,
     showAllCards,
     showCardById,
+    showAllCardsByCategory,
+    showAllPokemonCardsByType,
     showCardByName,
     deleteCard,
     deleteAllCards,

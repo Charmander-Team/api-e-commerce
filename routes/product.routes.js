@@ -9,6 +9,12 @@ module.exports = app => {
     // Retrieve all products / cards
     router.get("/", product.showAllCards);
 
+    // Retrieve all products / cards by a category ID (pokemon[2] or trainer[1] or energy[3])
+    router.get("/category/:category_id", product.showAllCardsByCategory);
+
+    // Retrieve all products / cards by a energy type
+    router.get("/type/:energy_type", product.showAllPokemonCardsByType);
+
     // Retrieve a single product / card with ID
     router.get("/:id", product.showCardById);
 
