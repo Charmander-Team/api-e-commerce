@@ -3,11 +3,11 @@ const cors = require('cors');
 
 const app = express();
 
-const corsOptions = {
-  origin: 'http://localhost:8081'
-};
-
 const config = require('./config/config');
+
+const corsOptions = {
+  origin: `http://localhost:${config.front_office_port}`
+};
 
 const db = require("./models/index.js");
 db.sequelize.sync();
