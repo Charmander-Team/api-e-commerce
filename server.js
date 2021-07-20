@@ -23,6 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 
 require("./routes/product.routes.js")(app);
 require("./routes/category.routes.js")(app);
+require("./routes/user.routes.js")(app);
 
 //Server listening
 app.listen(config.api_port,() => {
