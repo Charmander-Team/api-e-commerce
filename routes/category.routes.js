@@ -3,29 +3,26 @@ module.exports = app => {
 
     const router = require("express").Router();
 
-    // Create a new Tutorial
+    // Create a new category
     router.post("/", category.createCategory);
 
-    // Retrieve all products
+    // Retrieve all categories
     router.get("/", category.showAllCategory);
 
-    // Retrieve all published products
-    //router.get("/published", products.findAllPublished);
+    // Retrieve a single category with id
+    router.get("/:id", category.showCategoryById);
 
-    // Retrieve a single Tutorial with id
-    //router.get("/:id", category.showCardById);
+    // Retrieve a single category with name
+    router.get("/:name", category.showCategoryByName);
 
-    // Retrieve a single Tutorial with name
-    //router.get("/:name", category.showCardByName);
+    // Update a category with id
+    router.put("/:id", category.updateCategory);
 
-    // Update a Tutorial with id
-    //router.put("/:id", category.updateCard);
-
-    // Delete a Tutorial with id
-    //router.delete("/:id", category.deleteCard);
+    // Delete a category with id
+    router.delete("/:id", category.deleteCategory);
 
     // Delete all categories
-    //router.delete("/", category.deleteAllCards);
+    router.delete("/", category.deleteAllCategories);
 
     app.use('/api/category', router);
 };

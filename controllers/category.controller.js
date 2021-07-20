@@ -2,7 +2,7 @@ const db = require("../models");
 const Category = db.category;
 const Op = db.Sequelize.Op;
 
-// Create and Save a new Tutorial
+// Create and Save a new category
 const createCategory = (req, res) => {
     // Validate request
     if (!req.body.name) {
@@ -12,13 +12,13 @@ const createCategory = (req, res) => {
         return;
     }
 
-    // Create a Tutorial
+    // Create a category
     const category = {
         name: req.body.name,
         image: req.body.image
     };
 
-    // Save Product in the database
+    // Save category in the database
     Category.create(category)
         .then(data => {
             res.send(data);
@@ -26,12 +26,12 @@ const createCategory = (req, res) => {
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while creating the Category."
+                    err.message || "Some error occurred while creating the category."
             });
         });
 };
 
-// Retrieve all Tutorials from the database.
+// Retrieve all categories from the database.
 const showAllCategory = (req, res) => {
     const title = req.query.title;
     const condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
@@ -43,119 +43,115 @@ const showAllCategory = (req, res) => {
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while retrieving category."
+                    err.message || "Some error occurred while retrieving categories."
             });
         });
 };
 
-// Find a single Tutorial with an id
-const showCardById = (req, res) => {
+// Find a single category with an id
+const showCategoryById = (req, res) => {
     const id = req.params.id;
 
-    Product.findByPk(id)
+    Category.findByPk(id)
         .then(data => {
             res.send(data);
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error retrieving Product with id=" + id
+                message: "Error retrieving category with id=" + id
             });
         });
 };
 
-// Find a single Tutorial with an id
-const showCardByName = (req, res) => {
+// Find a single category with an id
+const showCategoryByName = (req, res) => {
     const name = req.params.name;
 
-    Product.findByPk(name)
+    Category.findByPk(name)
         .then(data => {
             res.send(data);
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error retrieving Product with id=" + name
+                message: "Error retrieving category with id=" + name
             });
         });
 };
 
-// Update a Tutorial by the id in the request
-const updateCard = (req, res) => {
+// Update a category by the id in the request
+const updateCategory = (req, res) => {
     const id = req.params.id;
 
-    Product.update(req.body, {
+    Category.update(req.body, {
         where: { id: id }
     })
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "Tutorial was updated successfully."
+                    message: "Category was updated successfully."
                 });
             } else {
                 res.send({
-                    message: `Cannot update Tutorial with id=${id}. Maybe Tutorial was not found or req.body is empty!`
+                    message: `Cannot update category with id=${id}. Maybe category was not found or req.body is empty!`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error updating Tutorial with id=" + id
+                message: "Error updating category with id=" + id
             });
         });
 };
 
-// Delete a Tutorial with the specified id in the request
-const deleteCard = (req, res) => {
+// Delete a category with the specified id in the request
+const deleteCategory = (req, res) => {
     const id = req.params.id;
 
-    Product.destroy({
+    Category.destroy({
         where: { id: id }
     })
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "Tutorial was deleted successfully!"
+                    message: "Category was deleted successfully!"
                 });
             } else {
                 res.send({
-                    message: `Cannot delete Product with id=${id}. Maybe Product was not found!`
+                    message: `Cannot delete category with id=${id}. Maybe category was not found!`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Could not delete Product with id=" + id
+                message: "Could not delete category with id=" + id
             });
         });
 };
 
-// Delete all Tutorials from the database.
-const deleteAllCards = (req, res) => {
-    Product.destroy({
+// Delete all categories from the database.
+const deleteAllCategories = (req, res) => {
+    Category.destroy({
         where: {},
         truncate: false
     })
         .then(nums => {
-            res.send({ message: `${nums} Tutorials were deleted successfully!` });
+            res.send({ message: `${nums} categories were deleted successfully!` });
         })
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while removing all tutorials."
+                    err.message || "Some error occurred while removing all categories."
             });
         });
 };
 
-/*// Find all published Tutorials
-exports.findAllPublished = (req, res) => {
-
-};*/
 
 module.exports = {
     createCategory,
     showAllCategory,
-/*    showCardById,
-    showCardByName,
-    deleteCard,
-    deleteAllCards,
-    updateCard,*/
+    showCategoryById,
+    showCategoryByName,
+    deleteCategory,
+    deleteAllCategories,
+    updateCategory,
 }
