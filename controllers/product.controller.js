@@ -55,7 +55,7 @@ const showAllCards = (req, res) => {
         });
 };
 
-// Find a single product / card with an id
+// Find a single product / card with an ID
 const showCardById = (req, res) => {
     const id = req.params.id;
 
@@ -65,12 +65,12 @@ const showCardById = (req, res) => {
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error retrieving product with id=" + id
+                message: "Error retrieving product with ID=" + id
             });
         });
 };
 
-// Find a single product / card with an id
+// Find a single product / card with an ID
 const showCardByName = (req, res) => {
     const name = req.params.name;
 
@@ -80,12 +80,12 @@ const showCardByName = (req, res) => {
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error retrieving product with id=" + name
+                message: "Error retrieving product with ID=" + name
             });
         });
 };
 
-// Update a product / card by the id in the request
+// Update a product / card by the ID in the request
 const updateCard = (req, res) => {
     const id = req.params.id;
 
@@ -99,7 +99,7 @@ const updateCard = (req, res) => {
                 });
             } else {
                 res.send({
-                    message: `Cannot update product with id=${id}. Maybe product was not found or req.body is empty!`
+                    message: `Cannot update product with ID=${id}. Maybe product was not found or req.body is empty!`
                 });
             }
         })
@@ -110,7 +110,7 @@ const updateCard = (req, res) => {
         });
 };
 
-// Delete a product / card with the specified id in the request
+// Delete a product / card with the specified ID in the request
 const deleteCard = (req, res) => {
     const id = req.params.id;
 
@@ -124,13 +124,13 @@ const deleteCard = (req, res) => {
                 });
             } else {
                 res.send({
-                    message: `Cannot delete product with id=${id}. Maybe product was not found!`
+                    message: `Cannot delete product with ID=${id}. Maybe product was not found!`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Could not delete product with id=" + id
+                message: "Could not delete product with ID=" + id
             });
         });
 };
@@ -151,11 +151,6 @@ const deleteAllCards = (req, res) => {
             });
         });
 };
-
-/*// Find all published Tutorials
-exports.findAllPublished = (req, res) => {
-
-};*/
 
 module.exports = {
     createCard,

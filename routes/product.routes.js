@@ -6,22 +6,19 @@ module.exports = app => {
     // Create a new product / card
     router.post("/", product.createCard);
 
-    // Retrieve all products / card
+    // Retrieve all products / cards
     router.get("/", product.showAllCards);
 
-    // Retrieve all published products
-    //router.get("/published", products.findAllPublished);
-
-    // Retrieve a single product / card with id
+    // Retrieve a single product / card with ID
     router.get("/:id", product.showCardById);
 
     // Retrieve a single product / card with name
-    router.get("/:name", product.showCardByName);
+    router.get("/name/:name", product.showCardByName);
 
-    // Update a product / card with id
+    // Update a product / card with ID
     router.put("/:id", product.updateCard);
 
-    // Delete a product / card with id
+    // Delete a product / card with ID
     router.delete("/:id", product.deleteCard);
 
     // Delete all products / cards
