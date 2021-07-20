@@ -2,7 +2,7 @@ const db = require("../models");
 const Product = db.product;
 const Op = db.Sequelize.Op;
 
-// Create and Save a new Tutorial
+// Create and Save a new product / card
 const createCard = (req, res) => {
     // Validate request
     if (!req.body.name) {
@@ -12,7 +12,7 @@ const createCard = (req, res) => {
         return;
     }
 
-    // Create a Tutorial
+    // Create a product / card
     const product = {
         ref: req.body.ref,
         category_id: req.body.category_id,
@@ -25,7 +25,7 @@ const createCard = (req, res) => {
         image: req.body.image
     };
 
-    // Save Product in the database
+    // Save product in the database
     Product.create(product)
         .then(data => {
             res.send(data);
@@ -33,12 +33,12 @@ const createCard = (req, res) => {
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while creating the Product."
+                    err.message || "Some error occurred while creating the product."
             });
         });
 };
 
-// Retrieve all Tutorials from the database.
+// Retrieve all products / cards from the database.
 const showAllCards = (req, res) => {
     const title = req.query.title;
     const condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
@@ -55,7 +55,7 @@ const showAllCards = (req, res) => {
         });
 };
 
-// Find a single Tutorial with an id
+// Find a single product / card with an id
 const showCardById = (req, res) => {
     const id = req.params.id;
 
@@ -65,12 +65,12 @@ const showCardById = (req, res) => {
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error retrieving Product with id=" + id
+                message: "Error retrieving product with id=" + id
             });
         });
 };
 
-// Find a single Tutorial with an id
+// Find a single product / card with an id
 const showCardByName = (req, res) => {
     const name = req.params.name;
 
@@ -80,12 +80,12 @@ const showCardByName = (req, res) => {
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error retrieving Product with id=" + name
+                message: "Error retrieving product with id=" + name
             });
         });
 };
 
-// Update a Tutorial by the id in the request
+// Update a product / card by the id in the request
 const updateCard = (req, res) => {
     const id = req.params.id;
 
@@ -95,22 +95,22 @@ const updateCard = (req, res) => {
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "Tutorial was updated successfully."
+                    message: "Product was updated successfully."
                 });
             } else {
                 res.send({
-                    message: `Cannot update Tutorial with id=${id}. Maybe Tutorial was not found or req.body is empty!`
+                    message: `Cannot update product with id=${id}. Maybe product was not found or req.body is empty!`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error updating Tutorial with id=" + id
+                message: "Error updating product with id=" + id
             });
         });
 };
 
-// Delete a Tutorial with the specified id in the request
+// Delete a product / card with the specified id in the request
 const deleteCard = (req, res) => {
     const id = req.params.id;
 
@@ -120,34 +120,34 @@ const deleteCard = (req, res) => {
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "Tutorial was deleted successfully!"
+                    message: "Product was deleted successfully!"
                 });
             } else {
                 res.send({
-                    message: `Cannot delete Product with id=${id}. Maybe Product was not found!`
+                    message: `Cannot delete product with id=${id}. Maybe product was not found!`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Could not delete Product with id=" + id
+                message: "Could not delete product with id=" + id
             });
         });
 };
 
-// Delete all Tutorials from the database.
+// Delete all products from the database.
 const deleteAllCards = (req, res) => {
     Product.destroy({
         where: {},
         truncate: false
     })
         .then(nums => {
-            res.send({ message: `${nums} Tutorials were deleted successfully!` });
+            res.send({ message: `${nums} products were deleted successfully!` });
         })
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while removing all tutorials."
+                    err.message || "Some error occurred while removing all products."
             });
         });
 };
