@@ -1,4 +1,5 @@
 const express = require('express');
+
 const cors = require('cors');
 
 const app = express();
@@ -20,11 +21,11 @@ app.use(express.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
-
 require("./routes/product.routes.js")(app);
 require("./routes/category.routes.js")(app);
 require("./routes/user.routes.js")(app);
 require("./routes/order.routes.js")(app);
+require("./routes/order_content.routes.js")(app);
 
 //Server listening
 app.listen(config.api_port,() => {

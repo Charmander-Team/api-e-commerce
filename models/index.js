@@ -1,6 +1,7 @@
 const config = require('../config/config.js');
 
 const Sequelize = require('sequelize');
+
 const sequelize = new Sequelize(config.sql_config.database, config.sql_config.user, config.sql_config.password, {
     host: config.sql_config.host,
     dialect: config.sql_config.dialect,
@@ -23,6 +24,7 @@ db.product = require("./product.model.js")(sequelize, Sequelize);
 db.category = require("./category.model.js")(sequelize, Sequelize);
 db.user = require("./user.model.js")(sequelize, Sequelize);
 db.order = require("./order.model.js")(sequelize, Sequelize);
+db.order_content = require("./order_content.model.js")(sequelize, Sequelize);
 
 //on exporte pour utiliser notre connexion depuis les autre fichiers.
 module.exports = db;
