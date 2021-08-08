@@ -22,7 +22,8 @@ const createCard = (req, res) => {
         date: req.body.date,
         bid: req.body.bid,
         price: req.body.price,
-        image: req.body.image
+        image: req.body.image,
+        stock: req.body.stock
     };
 
     // Save product in the database
@@ -41,7 +42,7 @@ const createCard = (req, res) => {
 // Retrieve all products / cards from the database.
 const showAllCards = (req, res) => {
     const title = req.query.title;
-    const condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
+    const condition = title ? { title: { [Op.like]: `%${title}%` },stock:{[Op.gt]: 0}} : {stock:{[Op.gt]: 0}};
 
     Product.findAll({ where: condition })
         .then(data => {
@@ -59,7 +60,7 @@ const showAllCards = (req, res) => {
 const showAllCardsByCategory = (req, res) => {
     const category_id = req.params.category_id
 
-    Product.findAll({ where: {category_id: category_id} })
+    Product.findAll({ where: {category_id: category_id,stock:{[Op.gt]: 0}} })
         .then(data => {
             res.send(data);
         })
@@ -77,7 +78,8 @@ const showAllPokemonCardsByType = (req, res) => {
 
     Product.findAll({ where: {
         category_id: 2, // 2 => pokemon card
-        energy_type: energy_type
+        energy_type: energy_type,
+        stock:{[Op.gt]: 0}
     }})
         .then(data => {
             res.send(data);

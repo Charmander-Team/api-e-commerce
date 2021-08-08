@@ -1,4 +1,5 @@
 const db = require("../models");
+const bcrypt = require('bcrypt');
 const User = db.user;
 const Op = db.Sequelize.Op;
 
@@ -12,6 +13,16 @@ const createUser = (req, res) => {
         return;
     }
 
+    let timestamp = Math.round(new Date().getTime() / 1000)
+
+    let tk = req.body.mail+":"+req.body.password
+
+    const salt = bcrypt.genSaltSync(10, 'a');
+    tk = bcrypt.hashSync(tk, salt);
+
+    let token = timestamp+":"+tk
+
+
     // Create a user
     const user = {
         lastname: req.body.lastname,
@@ -19,13 +30,20 @@ const createUser = (req, res) => {
         mail: req.body.mail,
         password: req.body.password,
         admin: req.body.admin,
-        image: req.body.image
+        image: req.body.image,
+        token: token
     };
 
     // Save user in the database
     User.create(user)
         .then(data => {
-            res.send(data);
+
+            let {password,hash,...rest} = data.dataValues 
+            let obj = {...rest}
+            
+            res.send(obj)
+
+            // res.send(data);
         })
         .catch(err => {
             res.status(500).send({
@@ -72,18 +90,15 @@ const updateUser = (req, res) => {
     const id = req.params.id;
 
     User.update(req.body, {
-        where: { id: id }
+        where: { id: id },
+        individualHooks: true 
     })
-        .then(num => {
-            if (num == 1) {
-                res.send({
-                    message: "User was updated successfully."
-                });
-            } else {
-                res.send({
-                    message: `Cannot update user with ID=${id}. Maybe user was not found or req.body is empty!`
-                });
-            }
+        .then(() => {
+            User.findOne({where:{id:id}}).then((data)=>{
+                let {password,hash,...rest} = data.dataValues 
+                let obj = {...rest}
+                res.send(obj)
+            })
         })
         .catch(err => {
             res.status(500).send({
@@ -134,6 +149,91 @@ const deleteAllUsers = (req, res) => {
         });
 };
 
+const checkUser = (req,res)=>{
+
+    // Validate request
+    if (!req.body.mail || !req.body.mdp) {
+        res.status(400).send({
+            message: "Mail and password can not be empty!"
+        });
+    }
+
+    const conditionMail = {mail:req.body.mail}
+    // let mdp =""
+    User.findOne({ where: conditionMail })
+        .then(data => {
+           let mdp = bcrypt.hashSync(req.body.mdp, data.hash)
+           const condition = {
+            [Op.and]: [
+              { mail: req.body.mail },
+              { password: mdp }
+    
+            ]
+          }
+
+          User.findOne({ where: condition })
+        .then(data => {
+            let timestamp = Math.round(new Date().getTime() / 1000)
+            let tk = data.dataValues.mail+":"+data.dataValues.password
+
+            const salt = bcrypt.genSaltSync(10, 'a');
+            tk = bcrypt.hashSync(tk, salt);
+
+            let token = {token:timestamp+":"+tk}
+            let {password,hash,...rest} = data.dataValues 
+            let obj = {...rest,...token}
+
+            User.update({token:timestamp+":"+tk},{ where: condition })
+
+            res.send(obj);
+        })
+
+        }).catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while retrieving user."
+            });
+        });
+}
+
+
+const checkUserToken = (req,res)=>{
+    // Validate request
+    if (!req.body.token) {
+        res.status(400).send({
+            message: "token can not be empty!"
+        });
+    }
+
+    const condition = {token : req.body.token}
+
+    User.findOne({ where: condition }).then( data => {
+        let timestamp = Math.round(new Date().getTime() / 1000)
+
+        let tk = data.dataValues.mail+":"+data.dataValues.password
+
+        const salt = bcrypt.genSaltSync(10, 'a');
+        tk = bcrypt.hashSync(tk, salt);
+
+        let token = {token:timestamp+":"+tk}
+        let {password,hash,...rest} = data.dataValues 
+        let obj = {...rest,...token}
+
+        User.update({token:timestamp+":"+tk},{ where: condition })
+        
+        res.send(obj)
+    }).catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while retrieving user."
+            });
+        });
+
+    
+
+
+}
+
 module.exports = {
     createUser,
     showAllUsers,
@@ -141,4 +241,6 @@ module.exports = {
     deleteUser,
     deleteAllUsers,
     updateUser,
+    checkUser,
+    checkUserToken
 }

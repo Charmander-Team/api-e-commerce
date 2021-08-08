@@ -31,6 +31,9 @@ module.exports = (sequelize, Sequelize) => {
         image: {
             type: Sequelize.STRING
         },
+        stock: {
+            type: Sequelize.INTEGER
+        },
     });
 /*    Product.associate = (models) => {
         Product.belongsTo(models.category);
