@@ -1,16 +1,9 @@
 const express = require('express');
 
-const cors = require('cors');
-
 const app = express();
 
 const config = require('./config/config');
 
-/*const corsOptions = {
-  origin: `http://localhost:${config.front_office_port}`
-};*/
-
-// Same origin
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
@@ -20,8 +13,6 @@ app.use((req, res, next) => {
 
 const db = require("./models/index.js");
 db.sequelize.sync();
-
-//app.use(cors(corsOptions));
 
 // parse application/json
 app.use(express.json());
