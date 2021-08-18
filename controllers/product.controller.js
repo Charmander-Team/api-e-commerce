@@ -7,7 +7,7 @@ const createCard = (req, res) => {
     // Validate request
     if (!req.body.name) {
         res.status(400).send({
-            message: "Content can not be empty!"
+            message: "Name can not be empty!"
         });
         return;
     }
@@ -19,11 +19,10 @@ const createCard = (req, res) => {
         name: req.body.name,
         description: req.body.description,
         energy_type: req.body.energy_type,
-        date: req.body.date,
-        bid: req.body.bid,
         price: req.body.price,
         image: req.body.image,
-        stock: req.body.stock
+        stock: req.body.stock,
+        condition: req.body.condition,
     };
 
     // Save product in the database
@@ -102,22 +101,7 @@ const showCardById = (req, res) => {
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error retrieving product with ID=" + id
-            });
-        });
-};
-
-// Find a single product / card with an ID
-const showCardByName = (req, res) => {
-    const name = req.params.name;
-
-    Product.findByPk(name)
-        .then(data => {
-            res.send(data);
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: "Error retrieving product with ID=" + name
+                message: `Error retrieving product with ID = ${id}`
             });
         });
 };
@@ -157,17 +141,17 @@ const deleteCard = (req, res) => {
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "Product was deleted successfully!"
+                    message: "Product/Card was deleted successfully!"
                 });
             } else {
                 res.send({
-                    message: `Cannot delete product with ID=${id}. Maybe product was not found!`
+                    message: `Cannot delete product with ID = ${id}. Maybe product was not found!`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Could not delete product with ID=" + id
+                message: `Could not delete product with ID = ${id}`
             });
         });
 };
@@ -195,7 +179,6 @@ module.exports = {
     showCardById,
     showAllCardsByCategory,
     showAllPokemonCardsByType,
-    showCardByName,
     deleteCard,
     deleteAllCards,
     updateCard,

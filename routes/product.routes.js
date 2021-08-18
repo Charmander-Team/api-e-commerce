@@ -18,9 +18,6 @@ module.exports = app => {
     // Retrieve a single product / card with ID
     router.get("/:id", product.showCardById);
 
-    // Retrieve a single product / card with name
-    router.get("/name/:name", product.showCardByName);
-
     // Update a product / card with ID
     router.put("/:id", product.updateCard);
 

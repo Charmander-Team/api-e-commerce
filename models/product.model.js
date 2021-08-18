@@ -19,12 +19,6 @@ module.exports = (sequelize, Sequelize) => {
         energy_type: {
             type: Sequelize.STRING
         },
-        date: {
-            type: Sequelize.DATE
-        },
-        bid: {
-            type: Sequelize.BOOLEAN
-        },
         price: {
             type: Sequelize.INTEGER
         },
@@ -34,10 +28,9 @@ module.exports = (sequelize, Sequelize) => {
         stock: {
             type: Sequelize.INTEGER
         },
+        condition: {
+            type: Sequelize.STRING
+        }
     });
-/*    Product.associate = (models) => {
-        Product.belongsTo(models.category);
-    };*/
-
     return Product;
 };
