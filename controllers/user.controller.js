@@ -15,12 +15,12 @@ const createUser = (req, res) => {
 
     let timestamp = Math.round(new Date().getTime() / 1000)
 
-    let tk = req.body.mail+":"+req.body.password
+    let tk = `${req.body.mail}:${req.body.password}`
 
     const salt = bcrypt.genSaltSync(10, 'a');
     tk = bcrypt.hashSync(tk, salt);
 
-    let token = timestamp+":"+tk
+    let token = `${timestamp}:${tk}`
 
 
     // Create a user
@@ -80,12 +80,12 @@ const showUserById = (req, res) => {
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error retrieving user with ID=" + id
+                message: `Error retrieving user with ID = ${id}`
             });
         });
 };
 
-// Update a user by the id in the request
+// Update a user by the ID in the request
 const updateUser = (req, res) => {
     const id = req.params.id;
 
@@ -102,7 +102,7 @@ const updateUser = (req, res) => {
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error updating user with ID=" + id
+                message: `Error updating user with ID = ${id}`
             });
         });
 };
@@ -121,13 +121,13 @@ const deleteUser = (req, res) => {
                 });
             } else {
                 res.send({
-                    message: `Cannot delete user with ID=${id}. Maybe user was not found!`
+                    message: `Cannot delete user with ID = ${id}. Maybe user was not found!`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Could not delete user with ID=" + id
+                message: `Could not delete user with ID = ${id}`
             });
         });
 };
@@ -149,7 +149,8 @@ const deleteAllUsers = (req, res) => {
         });
 };
 
-const checkUser = (req,res)=>{
+// Check user
+const checkUser = (req,res) => {
 
     // Validate request
     if (!req.body.mail || !req.body.mdp) {
@@ -196,8 +197,8 @@ const checkUser = (req,res)=>{
         });
 }
 
-
-const checkUserToken = (req,res)=>{
+// Check user token
+const checkUserToken = (req,res) => {
     // Validate request
     if (!req.body.token) {
         res.status(400).send({

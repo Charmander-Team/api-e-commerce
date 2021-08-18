@@ -9,7 +9,7 @@ module.exports = app => {
     // Retrieve all users
     router.get("/", user.showAllUsers);
 
-    // Retrieve a single user / card with id
+    // Retrieve a single user with ID
     router.get("/:id", user.showUserById);
 
     // Update a user with ID
