@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
-module.exports = (sequelize, Sequelize) => {
 
+module.exports = (sequelize, Sequelize) => {
     const User = sequelize.define("user", {
         id: {
             type: Sequelize.INTEGER,
@@ -52,6 +52,5 @@ module.exports = (sequelize, Sequelize) => {
             }, 
     }
     );
-
     return User;
 };

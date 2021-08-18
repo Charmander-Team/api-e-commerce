@@ -11,6 +11,5 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.INTEGER
         },
     });
-
     return Stock;
 };

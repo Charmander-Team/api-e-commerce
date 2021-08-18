@@ -1,5 +1,4 @@
 module.exports = (sequelize, Sequelize) => {
-
     const Order_content = sequelize.define("order_content", {
         id: {
             type: Sequelize.INTEGER,
@@ -15,7 +14,5 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.INTEGER
         },
     });
-
     return Order_content;
-
 };
