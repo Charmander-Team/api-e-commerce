@@ -26,6 +26,7 @@ require("./routes/user.routes.js")(app);
 require("./routes/order.routes.js")(app);
 require("./routes/order_content.routes.js")(app);
 require("./routes/page.routes.js")(app);
+require("./routes/stock.routes.js")(app);
 
 //Server listening
 app.listen(config.api_port,() => {
