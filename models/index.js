@@ -25,6 +25,7 @@ db.category = require("./category.model.js")(sequelize, Sequelize);
 db.user = require("./user.model.js")(sequelize, Sequelize);
 db.order = require("./order.model.js")(sequelize, Sequelize);
 db.order_content = require("./order_content.model.js")(sequelize, Sequelize);
+db.stock = require("./stock.model.js")(sequelize, Sequelize);
 
 //on exporte pour utiliser notre connexion depuis les autre fichiers.
 module.exports = db;
