@@ -10,9 +10,5 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING
         },
     });
-/*    Category.associate = (models) => {
-        Category.hasMany(models.product);
-    };*/
-
     return Category;
 };
