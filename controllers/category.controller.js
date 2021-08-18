@@ -7,7 +7,7 @@ const createCategory = (req, res) => {
     // Validate request
     if (!req.body.name) {
         res.status(400).send({
-            message: "Content can not be empty!"
+            message: "Name can not be empty!"
         });
         return;
     }
@@ -58,7 +58,7 @@ const showCategoryById = (req, res) => {
         })
         .catch(err => {
             res.status(500).send({
-                message: `Error retrieving category with id = ${id}`
+                message: `Error retrieving category with ID = ${id}`
             });
         });
 };
@@ -77,13 +77,13 @@ const updateCategory = (req, res) => {
                 });
             } else {
                 res.send({
-                    message: `Cannot update category with id = ${id}. Maybe category was not found or req.body is empty!`
+                    message: `Cannot update category with ID = ${id}. Maybe category was not found or req.body is empty!`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: `Error updating category with id = ${id}`
+                message: `Error updating category with ID = ${id}`
             });
         });
 };
@@ -102,13 +102,13 @@ const deleteCategory = (req, res) => {
                 });
             } else {
                 res.send({
-                    message: `Cannot delete category with id = ${id}. Maybe category was not found!`
+                    message: `Cannot delete category with ID = ${id}. Maybe category was not found!`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: `Could not delete category with id = ${id}`
+                message: `Could not delete category with ID = ${id}`
             });
         });
 };
