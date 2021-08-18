@@ -12,9 +12,6 @@ module.exports = app => {
     // Retrieve a single category with id
     router.get("/:id", category.showCategoryById);
 
-    // Retrieve a single category with name
-    router.get("/:name", category.showCategoryByName);
-
     // Update a category with id
     router.put("/:id", category.updateCategory);
 

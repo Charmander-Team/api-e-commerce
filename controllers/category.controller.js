@@ -48,7 +48,7 @@ const showAllCategory = (req, res) => {
         });
 };
 
-// Find a single category with an id
+// Find a single category with an ID
 const showCategoryById = (req, res) => {
     const id = req.params.id;
 
@@ -58,27 +58,12 @@ const showCategoryById = (req, res) => {
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error retrieving category with id=" + id
+                message: `Error retrieving category with id = ${id}`
             });
         });
 };
 
-// Find a single category with an id
-const showCategoryByName = (req, res) => {
-    const name = req.params.name;
-
-    Category.findByPk(name)
-        .then(data => {
-            res.send(data);
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: "Error retrieving category with id=" + name
-            });
-        });
-};
-
-// Update a category by the id in the request
+// Update a category by the ID in the request
 const updateCategory = (req, res) => {
     const id = req.params.id;
 
@@ -92,18 +77,18 @@ const updateCategory = (req, res) => {
                 });
             } else {
                 res.send({
-                    message: `Cannot update category with id=${id}. Maybe category was not found or req.body is empty!`
+                    message: `Cannot update category with id = ${id}. Maybe category was not found or req.body is empty!`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error updating category with id=" + id
+                message: `Error updating category with id = ${id}`
             });
         });
 };
 
-// Delete a category with the specified id in the request
+// Delete a category with the specified ID in the request
 const deleteCategory = (req, res) => {
     const id = req.params.id;
 
@@ -117,13 +102,13 @@ const deleteCategory = (req, res) => {
                 });
             } else {
                 res.send({
-                    message: `Cannot delete category with id=${id}. Maybe category was not found!`
+                    message: `Cannot delete category with id = ${id}. Maybe category was not found!`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Could not delete category with id=" + id
+                message: `Could not delete category with id = ${id}`
             });
         });
 };
@@ -150,7 +135,6 @@ module.exports = {
     createCategory,
     showAllCategory,
     showCategoryById,
-    showCategoryByName,
     deleteCategory,
     deleteAllCategories,
     updateCategory,
