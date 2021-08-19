@@ -41,12 +41,14 @@ const createCard = (req, res) => {
 
 // Retrieve all products / cards from the database.
 const showAllCards = (req, res) => {
-    const title = req.query.title;
-    const condition = title ? { title: { [Op.like]: `%${title}%` },stock:{[Op.gt]: 0}} : {stock:{[Op.gt]: 0}};
-
-    Product.findAll({ where: condition })
-        .then(data => {
-            res.send(data);
+    Product.findAll()
+        .then(async(data) => {
+            for (const data_item of data) {
+                const category_id = data_item.category_id;
+                const data2 = await Category.findByPk(category_id);
+                data_item.setDataValue("category_object", data2);
+            }
+            res.status(200).send(data)
         })
         .catch(err => {
             res.status(500).send({
@@ -61,8 +63,13 @@ const showAllCardsByCategory = (req, res) => {
     const category_id = req.params.category_id
 
     Product.findAll({ where: {category_id: category_id,stock:{[Op.gt]: 0}} })
-        .then(data => {
-            res.send(data);
+        .then(async(data) => {
+            for (const data_item of data) {
+                const category_id = data_item.category_id;
+                const data2 = await Category.findByPk(category_id);
+                data_item.setDataValue("category_object", data2);
+            }
+            res.status(200).send(data)
         })
         .catch(err => {
             res.status(500).send({
@@ -81,8 +88,13 @@ const showAllPokemonCardsByType = (req, res) => {
         energy_type: energy_type,
         stock:{[Op.gt]: 0}
     }})
-        .then(data => {
-            res.send(data);
+        .then(async(data) => {
+            for (const data_item of data) {
+                const category_id = data_item.category_id;
+                const data2 = await Category.findByPk(category_id);
+                data_item.setDataValue("category_object", data2);
+            }
+            res.status(200).send(data)
         })
         .catch(err => {
             res.status(500).send({
@@ -98,7 +110,7 @@ const showCardById = (req, res) => {
 
     Product.findByPk(id)
         .then(data => {
-            let category_id = data.getDataValue("category_id");
+            const category_id = data.getDataValue("category_id");
             Category.findByPk(category_id)
                 .then(data2 => {
                     data.setDataValue("category_object", data2);
