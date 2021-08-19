@@ -109,14 +109,12 @@ const showCardById = (req, res) => {
     const id = req.params.id;
 
     Product.findByPk(id)
-        .then(data => {
+        .then(async(data) => {
             const category_id = data.getDataValue("category_id");
-            Category.findByPk(category_id)
-                .then(data2 => {
-                    data.setDataValue("category_object", data2);
-                    res.send(data);
+            const data2 = await Category.findByPk(category_id)
+            data.setDataValue("category_object", data2);
+            res.status(200).send(data);
             })
-        })
         .catch(err => {
             res.status(500).send({
                 message: `Error retrieving product with ID = ${id}`
