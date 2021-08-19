@@ -8,10 +8,12 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING
         },
         category_id: {
-            type: Sequelize.INTEGER
+            type: Sequelize.INTEGER,
+            allowNull: false,
         },
         name: {
-            type: Sequelize.STRING
+            type: Sequelize.STRING,
+            allowNull: false,
         },
         description: {
             type: Sequelize.STRING
@@ -29,7 +31,8 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.INTEGER
         },
         condition: {
-            type: Sequelize.STRING
+            type: Sequelize.STRING,
+            allowNull: false,
         }
     });
     return Product;

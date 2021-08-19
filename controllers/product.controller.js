@@ -1,5 +1,6 @@
 const db = require("../models");
 const Product = db.product;
+const Category = db.category;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new product / card
@@ -97,7 +98,12 @@ const showCardById = (req, res) => {
 
     Product.findByPk(id)
         .then(data => {
-            res.send(data);
+            let category_id = data.getDataValue("category_id");
+            Category.findByPk(category_id)
+                .then(data2 => {
+                    data.setDataValue("category_object", data2);
+                    res.send(data);
+            })
         })
         .catch(err => {
             res.status(500).send({
