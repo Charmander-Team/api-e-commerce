@@ -1,6 +1,8 @@
 const db = require("../models");
 const Order = db.order;
 const User = db.user;
+const Order_content = db.order_content;
+const Product = db.product;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new order
@@ -22,7 +24,7 @@ const createOrder = (req, res) => {
     // Save order in the database
     Order.create(order)
         .then(data => {
-            res.send(data);
+            res.status(201).send(data)
         })
         .catch(err => {
             res.status(500).send({
@@ -39,8 +41,12 @@ const showAllOrders = (req, res) => {
             for (const data_item of data) {
                 const user_id = data_item.user_id;
                 const data2 = await User.findByPk(user_id);
+                delete data2.dataValues.id;
                 delete data2.dataValues.password;
+                delete data2.dataValues.admin;
                 delete data2.dataValues.hash;
+                delete data2.dataValues.createdAt;
+                delete data2.dataValues.updatedAt;
                 data_item.setDataValue("user_object", data2);
             }
             res.status(200).send(data)
@@ -61,14 +67,37 @@ const showOrderById = (req, res) => {
         .then(async(data) => {
             const user_id = data.getDataValue("user_id");
             const data2 = await User.findByPk(user_id);
+            delete data2.dataValues.id;
             delete data2.dataValues.password;
+            delete data2.dataValues.admin;
             delete data2.dataValues.hash;
+            delete data2.dataValues.createdAt;
+            delete data2.dataValues.updatedAt;
             data.setDataValue("user_object", data2);
+
+            const data3 = await Order_content.findAll({where: {order_id: id}});
+            for (const data3_item of data3) {
+                delete data3_item.dataValues.id;
+                delete data3_item.dataValues.order_id;
+                delete data3_item.dataValues.createdAt;
+                delete data3_item.dataValues.updatedAt;
+
+                const product_id = data3_item.product_id;
+                const data4 = await Product.findByPk(product_id);
+                delete data4.dataValues.id;
+                delete data4.dataValues.description;
+                delete data4.dataValues.energy_type;
+                delete data4.dataValues.createdAt;
+                delete data4.dataValues.updatedAt;
+                data3_item.setDataValue("product_object", data4);
+            }
+            data.setDataValue("order_content", data3);
+
             res.status(200).send(data)
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error retrieving order with ID=" + id
+                message: `Error retrieving order with ID = ${id}`
             });
         });
 };
@@ -79,11 +108,11 @@ const showOrdersByUserId = (req, res) => {
 
     Order.findAll({where: {user_id: user_id}})
         .then(data => {
-            res.send(data);
+            res.status(200).send(data);
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error retrieving orders with user ID=" + user_id
+                message: `Error retrieving orders with user ID = ${user_id}`
             });
         });
 };
@@ -102,13 +131,13 @@ const updateOrder = (req, res) => {
                 });
             } else {
                 res.send({
-                    message: `Cannot update order with ID=${id}. Maybe order was not found or req.body is empty!`
+                    message: `Cannot update order with ID = ${id}. Maybe order was not found or req.body is empty!`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error updating order with ID=" + id
+                message: `Error updating order with ID = ${id}`
             });
         });
 };
@@ -127,13 +156,13 @@ const deleteOrder = (req, res) => {
                 });
             } else {
                 res.send({
-                    message: `Cannot delete order with id=${id}. Maybe order was not found!`
+                    message: `Cannot delete order with ID = ${id}. Maybe order was not found!`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Could not delete order with ID=" + id
+                message: `Could not delete order with ID = ${id}`
             });
         });
 };
