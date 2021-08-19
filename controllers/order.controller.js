@@ -1,5 +1,6 @@
 const db = require("../models");
 const Order = db.order;
+const User = db.user;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new order
@@ -33,12 +34,16 @@ const createOrder = (req, res) => {
 
 // Retrieve all orders from the database.
 const showAllOrders = (req, res) => {
-    const title = req.query.title;
-    const condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
-
-    Order.findAll({ where: condition })
-        .then(data => {
-            res.send(data);
+    Order.findAll()
+        .then(async (data) => {
+            for (const data_item of data) {
+                const user_id = data_item.user_id;
+                const data2 = await User.findByPk(user_id);
+                delete data2.dataValues.password;
+                delete data2.dataValues.hash;
+                data_item.setDataValue("user_object", data2);
+            }
+            res.status(200).send(data)
         })
         .catch(err => {
             res.status(500).send({
