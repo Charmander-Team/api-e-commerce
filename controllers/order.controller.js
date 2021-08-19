@@ -58,8 +58,13 @@ const showOrderById = (req, res) => {
     const id = req.params.id;
 
     Order.findByPk(id)
-        .then(data => {
-            res.send(data);
+        .then(async(data) => {
+            const user_id = data.getDataValue("user_id");
+            const data2 = await User.findByPk(user_id);
+            delete data2.dataValues.password;
+            delete data2.dataValues.hash;
+            data.setDataValue("user_object", data2);
+            res.status(200).send(data)
         })
         .catch(err => {
             res.status(500).send({
