@@ -55,12 +55,14 @@ const createUser = (req, res) => {
 
 // Retrieve all users from the database.
 const showAllUsers = (req, res) => {
-    const title = req.query.title;
-    const condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
 
-    User.findAll({ where: condition })
-        .then(data => {
-            res.send(data);
+    User.findAll()
+        .then(async(users) => {
+            for (const user of users) {
+                delete user.dataValues.password;
+                delete user.dataValues.hash;
+            }
+            res.status(200).send(users);
         })
         .catch(err => {
             res.status(500).send({
@@ -75,8 +77,10 @@ const showUserById = (req, res) => {
     const id = req.params.id;
 
     User.findByPk(id)
-        .then(data => {
-            res.send(data);
+        .then(user => {
+            delete user.dataValues.password;
+            delete user.dataValues.hash;
+            res.status(200).send(user);
         })
         .catch(err => {
             res.status(500).send({
