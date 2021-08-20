@@ -105,10 +105,21 @@ const showOrderById = (req, res) => {
 // Find orders with a user ID
 const showOrdersByUserId = (req, res) => {
     const user_id = req.params.user_id;
-
     Order.findAll({where: {user_id: user_id}})
-        .then(data => {
-            res.status(200).send(data);
+        .then(async (orders) => {
+            for (const order of orders) {
+                delete order.dataValues.user_id;
+                const order_id = order.id;
+                const orders_content = await Order_content.findAll({where: {order_id: order_id}});
+                for (const order_content of orders_content) {
+                    delete order_content.dataValues.id;
+                    delete order_content.dataValues.order_id;
+                    delete order_content.dataValues.createdAt;
+                    delete order_content.dataValues.updatedAt;
+                    order.setDataValue("order_content", order_content);
+                }
+            }
+            res.status(200).send(orders);
         })
         .catch(err => {
             res.status(500).send({
