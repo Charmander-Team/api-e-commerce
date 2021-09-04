@@ -34,23 +34,33 @@ const createUser = (req, res) => {
         token: token
     };
 
-    // Save user in the database
-    User.create(user)
-        .then(data => {
+    getUserByMail(req.body.mail, function(err, user){ //must check if user exists
+        if(err) throw err;
+        if(user){
+            console.log('existing...'); //may be deleted
+        } else {
+            User.create(user)
+                .then(data => {
 
-            let {password,hash,...rest} = data.dataValues 
-            let obj = {...rest}
-            
-            res.send(obj)
+                    let {password, hash, ...rest} = data.dataValues
+                    let obj = {...rest}
 
-            // res.send(data);
-        })
-        .catch(err => {
-            res.status(500).send({
-                message:
-                    err.message || "Some error occurred while creating the user."
-            });
-        });
+                    res.send(obj)
+
+                    // res.send(data);
+                })
+                .catch(err => {
+                    res.status(500).send({
+                        message:
+                            err.message || "Some error occurred while creating the user."
+                    });
+                });
+
+            //req.flash('success_msg', 'You registered successfuly and you can now login');
+            //res.redirect('/users/login');
+        }
+    })
+
 };
 
 // Retrieve all users from the database.
@@ -85,6 +95,23 @@ const showUserById = (req, res) => {
         .catch(err => {
             res.status(500).send({
                 message: `Error retrieving user with ID = ${id}`
+            });
+        });
+};
+
+// Find a single user with mail
+const getUserByMail = (req, res) => {
+    const mail = req.params.mail;
+
+    User.findOne({where: { mail: mail }})
+        .then(user => {
+            delete user.dataValues.password;
+            delete user.dataValues.hash;
+            res.status(200).send(user);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: `Error retrieving user with mail = ${mail}`
             });
         });
 };
@@ -243,6 +270,7 @@ module.exports = {
     createUser,
     showAllUsers,
     showUserById,
+    getUserByMail,
     deleteUser,
     deleteAllUsers,
     updateUser,

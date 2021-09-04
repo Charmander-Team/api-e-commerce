@@ -1,3 +1,4 @@
+const user = require("../controllers/user.controller.js");
 module.exports = app => {
     const user = require("../controllers/user.controller.js");
 
@@ -11,6 +12,9 @@ module.exports = app => {
 
     // Retrieve a single user with ID
     router.get("/:id", user.showUserById);
+
+    // Retrieve a single user with mail
+    router.get("/mail/:mail", user.getUserByMail);
 
     // Update a user with ID
     router.put("/:id", user.updateUser);
