@@ -4,13 +4,18 @@ const User = db.user;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new user
-const createUser = (req, res) => {
+const createUser = async (req, res) => {
     // Validate request
     if (!req.body.mail) {
-        res.status(400).send({
+        return res.status(400).send({
             message: "Mail can not be empty!"
         });
-        return;
+    }
+
+    // Check if mail address already exist
+    const oldUser = await User.findOne({ where: { mail: req.body.mail } });
+    if (oldUser) {
+        return res.status(400).send({ msg: 'Already use' });
     }
 
     let timestamp = Math.round(new Date().getTime() / 1000)
@@ -21,7 +26,6 @@ const createUser = (req, res) => {
     tk = bcrypt.hashSync(tk, salt);
 
     let token = `${timestamp}:${tk}`
-
 
     // Create a user
     const user = {
@@ -34,33 +38,22 @@ const createUser = (req, res) => {
         token: token
     };
 
-    getUserByMail(req.body.mail, function(err, user){ //must check if user exists
-        if(err) throw err;
-        if(user){
-            console.log('existing...'); //may be deleted
-        } else {
-            User.create(user)
-                .then(data => {
+    User.create(user)
+        .then(data => {
 
-                    let {password, hash, ...rest} = data.dataValues
-                    let obj = {...rest}
+            let {password, hash, ...rest} = data.dataValues
+            let obj = {...rest}
 
-                    res.send(obj)
+            res.send(obj)
 
-                    // res.send(data);
-                })
-                .catch(err => {
-                    res.status(500).send({
-                        message:
-                            err.message || "Some error occurred while creating the user."
-                    });
-                });
-
-            //req.flash('success_msg', 'You registered successfuly and you can now login');
-            //res.redirect('/users/login');
-        }
-    })
-
+            // res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while creating the user."
+            });
+        });
 };
 
 // Retrieve all users from the database.
@@ -107,10 +100,10 @@ const getUserByMail = (req, res) => {
         .then(user => {
             delete user.dataValues.password;
             delete user.dataValues.hash;
-            res.status(200).send(user);
+            return res.status(200).send(user);
         })
         .catch(err => {
-            res.status(500).send({
+            return res.status(500).send({
                 message: `Error retrieving user with mail = ${mail}`
             });
         });

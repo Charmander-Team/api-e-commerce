@@ -1,11 +1,29 @@
 const user = require("../controllers/user.controller.js");
 module.exports = app => {
     const user = require("../controllers/user.controller.js");
-
     const router = require("express").Router();
 
     // Create a new user
-    router.post("/", user.createUser);
+    const { body } = require("express-validator");
+    const db = require("../models");
+    const User = db.user;
+
+    router.post(
+        "/",
+        body('mail').custom(value => {
+            return User.findOne({ where: { mail: value } })
+                .then(user => {
+                    if (user) {
+                        return Promise.reject('E-mail already in use');
+                    }
+                });
+        }),
+        // (req, res) => {
+        //     console.log(req['express-validator#contexts'][0]);
+        //     return res.status(200).send({ msg: 'ntm' });
+        // }
+        user.createUser
+    );
 
     // Retrieve all users
     router.get("/", user.showAllUsers);
