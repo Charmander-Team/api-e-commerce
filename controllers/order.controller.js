@@ -18,7 +18,9 @@ const createOrder = (req, res) => {
     // Create an order
     const order = {
         user_id: req.body.user_id,
-        paid: req.body.paid
+        paid: req.body.paid,
+        status: req.body.status,
+        ref: req.body.ref
     };
 
     // Save order in the database
