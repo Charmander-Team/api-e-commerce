@@ -33,7 +33,10 @@ module.exports = (sequelize, Sequelize) => {
         condition: {
             type: Sequelize.STRING,
             allowNull: false,
-        }
+        },
+        delete: {
+            type: Sequelize.BOOLEAN
+        },
     });
     return Product;
 };

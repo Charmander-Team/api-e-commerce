@@ -93,6 +93,7 @@ const showOrderById = (req, res) => {
                 delete data4.dataValues.id;
                 delete data4.dataValues.description;
                 delete data4.dataValues.energy_type;
+                delete data4.dataValues.delete;
                 delete data4.dataValues.createdAt;
                 delete data4.dataValues.updatedAt;
                 data3_item.setDataValue("product_object", data4);

@@ -41,11 +41,18 @@ const createCard = (req, res) => {
 
 // Retrieve all products / cards from the database.
 const showAllCards = (req, res) => {
-    Product.findAll()
+    Product.findAll({ where : { delete: null } })
         .then(async(data) => {
             for (const data_item of data) {
                 const category_id = data_item.category_id;
-                const data2 = await Category.findByPk(category_id);
+                let data2 = await Category.findByPk(category_id);
+                if (data2) {
+                    delete data2.dataValues.id;
+                    delete data2.dataValues.createdAt;
+                    delete data2.dataValues.updatedAt;
+                } else {
+                    data2 = "Category has been removed";
+                }
                 data_item.setDataValue("category_object", data2);
             }
             res.status(200).send(data)
@@ -151,13 +158,11 @@ const updateCard = (req, res) => {
 const deleteCard = (req, res) => {
     const id = req.params.id;
 
-    Product.destroy({
-        where: { id: id }
-    })
+    Product.update( {delete: 1} ,{where: { id: id }})
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "Product/Card was deleted successfully!"
+                    message: "Product/Card was 'deleted' successfully!"
                 });
             } else {
                 res.send({
