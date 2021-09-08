@@ -30,6 +30,9 @@ module.exports = (sequelize, Sequelize) => {
         hash: {
             type: Sequelize.STRING,
         },
+        delete: {
+            type: Sequelize.BOOLEAN
+        },
     },
     {
         hooks: {

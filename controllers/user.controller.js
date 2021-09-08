@@ -59,11 +59,12 @@ const createUser = async (req, res) => {
 // Retrieve all users from the database.
 const showAllUsers = (req, res) => {
 
-    User.findAll()
+    User.findAll( { where : { delete: null } })
         .then(async(users) => {
             for (const user of users) {
                 delete user.dataValues.password;
                 delete user.dataValues.hash;
+                delete user.dataValues.delete;
             }
             res.status(200).send(users);
         })
@@ -135,13 +136,11 @@ const updateUser = (req, res) => {
 const deleteUser = (req, res) => {
     const id = req.params.id;
 
-    User.destroy({
-        where: { id: id }
-    })
+    User.update( { delete: 1 }, {where: { id: id }})
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "User was deleted successfully!"
+                    message: "User was 'deleted' successfully!"
                 });
             } else {
                 res.send({
