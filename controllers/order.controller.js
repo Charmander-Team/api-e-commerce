@@ -41,13 +41,18 @@ const showAllOrders = (req, res) => {
     Order.findAll()
         .then(async (data) => {
             for (const data_item of data) {
+                if (data_item.dataValues.status == null) {
+                    data_item.setDataValue("status", "Validée");
+                }
                 const user_id = data_item.user_id;
                 let data2 = await User.findByPk(user_id);
                 if (data2) {
                     delete data2.dataValues.id;
                     delete data2.dataValues.password;
+                    delete data2.dataValues.image;
                     delete data2.dataValues.admin;
                     delete data2.dataValues.hash;
+                    delete data2.dataValues.delete;
                     delete data2.dataValues.createdAt;
                     delete data2.dataValues.updatedAt;
                 } else {
@@ -71,11 +76,16 @@ const showOrderById = (req, res) => {
 
     Order.findByPk(id)
         .then(async(data) => {
+            if (data.dataValues.status == null) {
+                data.setDataValue("status", "Validée");
+            }
             const user_id = data.getDataValue("user_id");
             const data2 = await User.findByPk(user_id);
             delete data2.dataValues.id;
             delete data2.dataValues.password;
             delete data2.dataValues.admin;
+            delete data2.dataValues.delete;
+            delete data2.dataValues.image;
             delete data2.dataValues.hash;
             delete data2.dataValues.createdAt;
             delete data2.dataValues.updatedAt;
