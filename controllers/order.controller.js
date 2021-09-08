@@ -42,13 +42,17 @@ const showAllOrders = (req, res) => {
         .then(async (data) => {
             for (const data_item of data) {
                 const user_id = data_item.user_id;
-                const data2 = await User.findByPk(user_id);
-                delete data2.dataValues.id;
-                delete data2.dataValues.password;
-                delete data2.dataValues.admin;
-                delete data2.dataValues.hash;
-                delete data2.dataValues.createdAt;
-                delete data2.dataValues.updatedAt;
+                let data2 = await User.findByPk(user_id);
+                if (data2) {
+                    delete data2.dataValues.id;
+                    delete data2.dataValues.password;
+                    delete data2.dataValues.admin;
+                    delete data2.dataValues.hash;
+                    delete data2.dataValues.createdAt;
+                    delete data2.dataValues.updatedAt;
+                } else {
+                    data2 = "User has been removed"
+                }
                 data_item.setDataValue("user_object", data2);
             }
             res.status(200).send(data)
