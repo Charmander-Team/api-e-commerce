@@ -49,7 +49,6 @@ const showAllOrders = (req, res) => {
                 if (data2) {
                     delete data2.dataValues.id;
                     delete data2.dataValues.password;
-                    delete data2.dataValues.image;
                     delete data2.dataValues.admin;
                     delete data2.dataValues.hash;
                     delete data2.dataValues.delete;
@@ -85,7 +84,6 @@ const showOrderById = (req, res) => {
             delete data2.dataValues.password;
             delete data2.dataValues.admin;
             delete data2.dataValues.delete;
-            delete data2.dataValues.image;
             delete data2.dataValues.hash;
             delete data2.dataValues.createdAt;
             delete data2.dataValues.updatedAt;
