@@ -69,7 +69,13 @@ const showAllCards = (req, res) => {
 const showAllCardsByCategory = (req, res) => {
     const category_id = req.params.category_id
 
-    Product.findAll({ where: {category_id: category_id,stock:{[Op.gt]: 0}} })
+    Product.findAll({
+        where: {
+            category_id: category_id,
+            //stock:{[Op.gt]: 0},
+            delete: null
+        }
+    })
         .then(async(data) => {
             for (const data_item of data) {
                 const category_id = data_item.category_id;
@@ -90,11 +96,14 @@ const showAllCardsByCategory = (req, res) => {
 const showAllPokemonCardsByType = (req, res) => {
     const energy_type = req.params.energy_type
 
-    Product.findAll({ where: {
-        category_id: 2, // 2 => pokemon card
-        energy_type: energy_type,
-        stock:{[Op.gt]: 0}
-    }})
+    Product.findAll({
+        where: {
+            category_id: 2, // 2 => pokemon card
+            energy_type: energy_type,
+            //stock:{[Op.gt]: 0}
+            delete: null
+        }
+    })
         .then(async(data) => {
             for (const data_item of data) {
                 const category_id = data_item.category_id;
