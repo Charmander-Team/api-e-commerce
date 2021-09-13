@@ -13,7 +13,7 @@ module.exports = app => {
     router.get("/:id", user_address.showUserAddressById);
 
     // Retrieve a user address with an order ID
-    router.get("/order/:id", user_address.showUserAddressByOrderId);
+    router.get("/order/:order_id", user_address.showUserAddressByOrderId);
 
     app.use('/api/user_address', router);
 };
