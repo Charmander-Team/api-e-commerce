@@ -123,6 +123,9 @@ const showOrdersByUserId = (req, res) => {
     Order.findAll({where: {user_id: user_id}})
         .then(async (orders) => {
             for (const order of orders) {
+                if (order.dataValues.status == null) {
+                    order.setDataValue("status", "Validée");
+                }
                 delete order.dataValues.user_id;
                 const order_id = order.id;
                 const orders_content = await Order_content.findAll({where: {order_id: order_id}});
