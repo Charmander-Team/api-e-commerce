@@ -23,6 +23,7 @@ db.sequelize = sequelize;
 db.product = require("./product.model.js")(sequelize, Sequelize);
 db.category = require("./category.model.js")(sequelize, Sequelize);
 db.user = require("./user.model.js")(sequelize, Sequelize);
+db.user_address = require("./user_address.model.js")(sequelize, Sequelize);
 db.order = require("./order.model.js")(sequelize, Sequelize);
 db.order_content = require("./order_content.model.js")(sequelize, Sequelize);
 db.stock = require("./stock.model.js")(sequelize, Sequelize);

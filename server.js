@@ -23,6 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 require("./routes/product.routes.js")(app);
 require("./routes/category.routes.js")(app);
 require("./routes/user.routes.js")(app);
+require("./routes/user_address.routes.js")(app);
 require("./routes/order.routes.js")(app);
 require("./routes/order_content.routes.js")(app);
 require("./routes/page.routes.js")(app);
