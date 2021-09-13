@@ -16,12 +16,6 @@ then exit:
 exit;
 ````
 
-### The DUMP:
-You need to export the DB already done in your DB:
-``````sql
-mysql -u username -p eshop_pkm < config/eshop_pkm-dump_XXXX-XX-XX_XX.XX.XX.sql
-``````
-
 # Step 1:
 ```shell
 $ npm install
