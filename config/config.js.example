@@ -22,10 +22,15 @@ const api_port = 3000;
 
 const front_office_port = 8080;
 
+const smtp = {
+    user: "johndoe@ethereal.email",
+    pass: "blablablabla"
+}
+
 module.exports.sql_config = sql_config;
 module.exports.api_port = api_port;
 module.exports.front_office_port = front_office_port;
-
+module.exports.smtp = smtp;
 
 
 
