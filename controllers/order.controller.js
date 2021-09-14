@@ -39,27 +39,27 @@ const createOrder = (req, res) => {
 // Retrieve all orders from the database.
 const showAllOrders = (req, res) => {
     Order.findAll()
-        .then(async (data) => {
-            for (const data_item of data) {
-                if (data_item.dataValues.status == null) {
-                    data_item.setDataValue("status", "Validée");
+        .then(async (orders) => {
+            for (const order of orders) {
+                if (order.dataValues.status == null) {
+                    order.setDataValue("status", "Validée");
                 }
-                const user_id = data_item.user_id;
-                let data2 = await User.findByPk(user_id);
-                if (data2) {
-                    delete data2.dataValues.id;
-                    delete data2.dataValues.password;
-                    delete data2.dataValues.admin;
-                    delete data2.dataValues.hash;
-                    delete data2.dataValues.delete;
-                    delete data2.dataValues.createdAt;
-                    delete data2.dataValues.updatedAt;
+                const user_id = order.user_id;
+                let user = await User.findByPk(user_id);
+                if (user) {
+                    delete user.dataValues.id;
+                    delete user.dataValues.password;
+                    delete user.dataValues.admin;
+                    delete user.dataValues.hash;
+                    delete user.dataValues.delete;
+                    delete user.dataValues.createdAt;
+                    delete user.dataValues.updatedAt;
                 } else {
-                    data2 = "User has been removed"
+                    user = "User has been removed"
                 }
-                data_item.setDataValue("user_object", data2);
+                order.setDataValue("user_object", user);
             }
-            res.status(200).send(data)
+            res.status(200).send(orders)
         })
         .catch(err => {
             res.status(500).send({
