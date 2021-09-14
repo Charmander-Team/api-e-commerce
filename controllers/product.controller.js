@@ -104,13 +104,13 @@ const showAllPokemonCardsByType = (req, res) => {
             delete: null
         }
     })
-        .then(async(data) => {
-            for (const data_item of data) {
-                const category_id = data_item.category_id;
-                const data2 = await Category.findByPk(category_id);
-                data_item.setDataValue("category_object", data2);
+        .then(async(cards) => {
+            for (const card of cards) {
+                const category_id = card.category_id;
+                const category = await Category.findByPk(category_id);
+                card.setDataValue("category_object", category);
             }
-            res.status(200).send(data)
+            res.status(200).send(cards)
         })
         .catch(err => {
             res.status(500).send({
