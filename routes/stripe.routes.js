@@ -10,8 +10,6 @@ module.exports = app => {
         // Moreover you can take more details from user
         // like Address, Name, etc from form
         stripe.customers.create({
-            email: req.body.stripeEmail,
-            source: req.body.stripeToken,
             name: 'Gourav Hammad',
             address: {
                 line1: 'TC 9/4 Old MES colony',
