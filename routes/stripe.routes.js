@@ -25,8 +25,8 @@ module.exports = app => {
             .then((customer) => {
 
                 return stripe.charges.create({
-                    amount: 50000,
-                    description: 'Pokeversement',
+                    amount: req.body.amount,
+                    description: req.body.description,
                     currency: 'EUR',
                     customer: customer.id
                 });
