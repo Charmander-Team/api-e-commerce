@@ -38,7 +38,7 @@ const createOrder = (req, res) => {
 
 // Retrieve all orders from the database.
 const showAllOrders = (req, res) => {
-    Order.findAll()
+    Order.findAll({ where : { delete: null } })
         .then(async (orders) => {
             for (const order of orders) {
                 if (order.dataValues.status == null) {
@@ -175,13 +175,14 @@ const updateOrder = (req, res) => {
 const deleteOrder = (req, res) => {
     const id = req.params.id;
 
-    Order.destroy({
-        where: { id: id }
-    })
+    Order.update(
+        {delete : 1},
+        {where: { id: id }}
+    )
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "Order was deleted successfully!"
+                    message: "Order was 'deleted' successfully!"
                 });
             } else {
                 res.send({

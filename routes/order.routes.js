@@ -18,7 +18,7 @@ module.exports = app => {
     // Update a order with ID
     router.put("/:id", order.updateOrder);
 
-    // Delete a order with ID
+    // "Delete" a order with ID
     router.delete("/:id", order.deleteOrder);
 
     // Delete all orders

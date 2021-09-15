@@ -18,6 +18,9 @@ module.exports = (sequelize, Sequelize) => {
         ref: {
             type: Sequelize.STRING
         },
+        delete: {
+            type: Sequelize.BOOLEAN
+        },
     });
     return Order;
 };
