@@ -1,5 +1,4 @@
 const express = require('express');
-
 const app = express();
 
 const config = require('./config/config');
@@ -29,6 +28,7 @@ require("./routes/order_content.routes.js")(app);
 require("./routes/page.routes.js")(app);
 require("./routes/stock.routes.js")(app);
 require("./routes/nodemailer.routes.js")(app);
+require("./routes/stripe.routes.js")(app);
 
 //Server listening
 app.listen(config.api_port,() => {
