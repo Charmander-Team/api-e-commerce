@@ -23,7 +23,6 @@ module.exports = app => {
 
         })
             .then((customer) => {
-
                 return stripe.charges.create({
                     amount: req.body.amount,
                     description: req.body.description,
@@ -32,7 +31,7 @@ module.exports = app => {
                 });
             })
             .then((charge) => {
-                res.send("Success")  // If no error occurs
+                res.status(200).send("Success")  // If no error occurs
             })
             .catch((err) => {
                 res.send(err)       // If some error occurs
