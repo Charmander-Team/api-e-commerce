@@ -19,8 +19,9 @@ const createOrder = (req, res) => {
     const order = {
         user_id: req.body.user_id,
         paid: req.body.paid,
-        status: req.body.status,
-        ref: req.body.ref
+        status: "En cours",
+        ref: `${req.body.user_id}_${Date.now()}`,
+        delete: req.body.delete
     };
 
     // Save order in the database
@@ -42,7 +43,7 @@ const showAllOrders = (req, res) => {
         .then(async (orders) => {
             for (const order of orders) {
                 if (order.dataValues.status == null) {
-                    order.setDataValue("status", "Validée");
+                    order.setDataValue("status", "En cours");
                 }
                 const user_id = order.user_id;
                 let user = await User.findByPk(user_id);

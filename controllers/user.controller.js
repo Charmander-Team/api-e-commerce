@@ -35,6 +35,7 @@ const createUser = async (req, res) => {
         password: req.body.password,
         admin: req.body.admin,
         image: req.body.image,
+        delete: req.body.delete,
         token: token
     };
 

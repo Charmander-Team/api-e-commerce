@@ -15,7 +15,7 @@ const createCard = (req, res) => {
 
     // Create a product / card
     const product = {
-        ref: req.body.ref,
+        ref: `${req.body.name.substr(0, 3)}_${Date.now()}`,
         category_id: req.body.category_id,
         name: req.body.name,
         description: req.body.description,
@@ -24,6 +24,7 @@ const createCard = (req, res) => {
         image: req.body.image,
         stock: req.body.stock,
         condition: req.body.condition,
+        delete: req.body.delete
     };
 
     // Save product in the database
