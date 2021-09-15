@@ -10,21 +10,25 @@ module.exports = app => {
         // Moreover you can take more details from user
         // like Address, Name, etc from form
         stripe.customers.create({
-            name: 'Gourav Hammad',
-            address: {
-                line1: 'TC 9/4 Old MES colony',
-                postal_code: '452331',
-                city: 'Indore',
-                state: 'Madhya Pradesh',
-                country: 'India',
+            source: req.body.stripeToken,
+            name: req.body.name,
+            billing_details: {
+                address: {
+                    line1: req.body.address,
+                    postal_code: req.body.zip,
+                    city: req.body.city,
+                    country: req.body.country,
+                },
+                email: req.body.mail,
+                phone: req.body.phone,
             }
         })
             .then((customer) => {
 
                 return stripe.charges.create({
-                    amount: 2500,     // Charing Rs 25
-                    description: 'Web Development Product',
-                    currency: 'INR',
+                    amount: 50000,
+                    description: 'Pokeversement',
+                    currency: 'EUR',
                     customer: customer.id
                 });
             })
