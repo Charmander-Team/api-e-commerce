@@ -5,23 +5,22 @@ module.exports = app => {
 
     const stripe = require('stripe')(config.stripe_secret_key);
 
-    router.post('/payment', function(req, res){
+    router.post('/payment', function (req, res) {
 
         // Moreover you can take more details from user
         // like Address, Name, etc from form
         stripe.customers.create({
             source: req.body.stripeToken,
             name: req.body.name,
-            billing_details: {
-                address: {
-                    line1: req.body.address,
-                    postal_code: req.body.zip,
-                    city: req.body.city,
-                    country: req.body.country,
-                },
-                email: req.body.mail,
-                phone: req.body.phone,
-            }
+            address: {
+                line1: req.body.address,
+                postal_code: req.body.zip,
+                city: req.body.city,
+                country: req.body.country,
+            },
+            email: req.body.mail,
+            phone: req.body.phone,
+
         })
             .then((customer) => {
 
