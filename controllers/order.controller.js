@@ -19,7 +19,7 @@ const createOrder = (req, res) => {
     const order = {
         user_id: req.body.user_id,
         paid: req.body.paid,
-        status: "En cours",
+        status: "En-cours",
         ref: `${req.body.user_id}_${Date.now()}`,
         delete: req.body.delete
     };
@@ -43,7 +43,7 @@ const showAllOrders = (req, res) => {
         .then(async (orders) => {
             for (const order of orders) {
                 if (order.dataValues.status == null) {
-                    order.setDataValue("status", "En cours");
+                    order.setDataValue("status", "En-cours");
                 }
                 const user_id = order.user_id;
                 let user = await User.findByPk(user_id);
