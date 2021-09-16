@@ -27,10 +27,11 @@ const smtp = {
     pass: "blablablabla"
 }
 
+const stripe_secret_key = "sk_test_000000000000000000000000000000000000000000000000000000000000000000000";
+
+
 module.exports.sql_config = sql_config;
 module.exports.api_port = api_port;
 module.exports.front_office_port = front_office_port;
 module.exports.smtp = smtp;
-
-
-
+module.exports.stripe_secret_key = stripe_secret_key;
